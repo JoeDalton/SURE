@@ -2,8 +2,9 @@ import math
 import numpy as np
 from numpy.linalg import inv
 from scipy.special import erfinv
+from scipy.stats import linregress
 from Numerics.Algebra import NRMSE, NMAE
-from sklearn.linear_model import LinearRegression
+#from sklearn.linear_model import LinearRegression
 from SurrogateModelling.SurrogateModel import SurrogateModel as SM
 from SurrogateModelling.SurrogateTools.Autocorellation_functions import *
 from SurrogateModelling.SurrogateTools.optimisationTools import *
@@ -12,6 +13,7 @@ from Utils.I_O import prt
 
 fileName = 'SurrogateModelling/Kriging.py'
 
+#TODO: Refactor to unify trend models (constant, linear, PCE)
 
 class PCK_model(SM):
     # Details: Class that defines a universal kriging surrogate model
@@ -195,9 +197,8 @@ class OK_model(SM):
             self.trendType = kwargs["trend"]
             if self.trendType == "linear":
                 # Compute linear regression
-                self.trend = LinearRegression()
-                self.trend.fit(self.X, self.Y)
-                tosubstract = self.trend.predict(self.X)
+                self.trend = linregress(self.X, self.Y)
+                tosubstract = self.trend.intercept + self.trend.slope * self.X
                 self.Y -= tosubstract
             elif self.trendType == "none":
                 pass  # regression towards the mean
@@ -247,8 +248,8 @@ class OK_model(SM):
 
         mu_hat = self.compute_mu_hat(self.R, self.beta_hat, x0, self.theta)
 
-        if self.trendType != "none":
-            tosum = self.trend.predict(x0.reshape(1, -1))
+        if self.trendType == "linear":
+            tosum = self.trend.intercept + self.trend.slope * x0
             mu_hat += tosum
 
         if "conf" in kwargs:
