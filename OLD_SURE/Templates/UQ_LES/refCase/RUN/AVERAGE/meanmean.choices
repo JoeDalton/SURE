@@ -1,0 +1,4 @@
+'av_sol.h5'		! the mean output file
+2			! the number of fields following
+'./av_sol_old.h5'	! the mean input files
+'./av_sol_new.h5'! the mean input files

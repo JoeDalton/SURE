@@ -1,0 +1,38 @@
+BLOCK Simulation
+  ID            = myDummySimulation
+  simuType      = To_Keep
+  refFolderPath = refCase
+END BLOCK
+
+BLOCK Experiment
+  ID        = myDummyExperiment
+  ExpPath   = Experiment
+
+  SUBBLOCK Variable_Strain_Rate
+    mode                      = Single
+    ID                        = SR
+    targetFile                = UnsteadyDiffZFlame.input
+    targetDictPath            = Parameters/Strain_Rate
+    distribution              = Uniform
+    transformationType        = UniformToLogUniform
+    transformationFrom        = Values
+    transformationValues = 5 6198.339552649636
+  END SUBBLOCK
+END BLOCK
+
+BLOCK Controller
+  ID          = myController
+  nSample     = 10
+  sequence    = Regular
+  nThread     = 10
+  resultFile  = dummyResultFile.h5
+  QoIPath     = Data/QoI
+  InputPath   = Data/Inputs
+  WeightPath  = Data/Weights
+  isContinued = False
+  outputLevel = 0
+END BLOCK
+
+BLOCK Files
+  myFile      = /Users/lavabreg/agath/data/Mechanisms/H2_Konnov/H2_Konnov_With_UF.h5
+END BLOCK

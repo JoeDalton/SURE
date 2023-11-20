@@ -1,0 +1,49 @@
+$BOUNDARY-PATCHES
+!------------------------------------------------------
+patch_name = inlet_fuel
+boundary_condition = INLET_RELAX_UVW_T_Y_TURB
+wave_type = temporal
+target_origin = solutbound
+relax_type = local
+relax_coeff_Un =   1.0000000D+03
+relax_coeff_Ut =   1.0000000D+03
+relax_coeff_T =   0.10000000D+06
+relax_coeff_Y =   0.10000000D+06
+turb_injection_method = CERFACS
+turb_signal_type = isotrop
+turb_modes_number = 50
+turb_Le = 1.52d-3
+turb_Lcutoff = 0.4d-3
+turb_Ubulk = 107.0d0
+forced_corner_associated_patch = walls
+!------------------------------------------------------
+patch_name = inlet_vitiated
+boundary_condition = INLET_RELAX_UVW_T_Y
+wave_type = temporal
+target_origin = solutbound
+relax_type = local
+relax_coeff_Un =   0.10000000D+06 ! 04
+relax_coeff_Ut =   0.10000000D+06 ! 04
+relax_coeff_T =   0.10000000D+06
+relax_coeff_Y =   0.10000000D+06
+!------------------------------------------------------
+patch_name = outlet
+boundary_condition = OUTLET_RELAX_P
+wave_type = normal_FE
+target_origin = solutbound
+relax_type = local
+damping_type = local
+relax_coeff_P =   1.00D-03 ! 1.0d3
+!------------------------------------------------------
+patch_name = lip_walls
+boundary_condition = WALL_LAW_ADIAB
+free_corner_min_angle = 100.0d0
+!------------------------------------------------------
+patch_name = walls
+boundary_condition = WALL_LAW_ADIAB
+free_corner_min_angle = 100.0d0
+!------------------------------------------------------
+patch_name = ext_walls
+boundary_condition = WALL_SLIP_ADIAB
+!------------------------------------------------------
+$end_BOUNDARY-PATCHES

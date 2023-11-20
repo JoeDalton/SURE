@@ -1,0 +1,7 @@
+*.pyc
+*.swp
+*.pyo
+.DS_Store
+Programs/testData
+Programs/results
+.idea

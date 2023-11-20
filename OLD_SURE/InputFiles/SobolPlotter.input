@@ -1,0 +1,14 @@
+BLOCK Experiment
+  LoadFile      = --> Files/myFile
+  LoadPath      = Experiment
+END BLOCK
+
+BLOCK Sobol_Indices
+  LoadFile      = --> Files/myFile
+  LoadPath      = SobolIndices/withPCE
+  PlotThreshold = 0.00001
+END BLOCK
+
+BLOCK Files
+  myFile      = results/myResultFile.h5
+END BLOCK

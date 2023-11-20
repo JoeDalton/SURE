@@ -1,0 +1,90 @@
+'../MESH/mesh.mesh.h5'             ! Mesh file
+'../MESH/mesh.asciiBound'          ! The asciiBound file
+'../MESH/mesh.asciiBound_tpf'      ! The asciiBound tpf file (optional)
+'./mesh.solutBound.h5' ! The Boundary Conditions File (HDF5 format)
+!------------------------------------------------
+! Please refrain from modifying BC names, keywords or ordering
+! constant ; genprofile ; externalhdf5
+genprofile > Patch  1 : inlet_fuel
+constant > Patch  2 : inlet_vitiated
+constant > Patch  3 : outlet
+constant > Patch  4 : walls
+constant > Patch  5 : ext_walls
+!------------------------------------------------
+!    boundary data
+!------------------------------------------------
+Patch   1 : inlet_fuel
+BCtype: INLET_RELAX_UVW_T_Y_TURB
+genprofile      ! mass flow will override velocity magnitude
+
+VOL FLOW(m3/s)
+1.755d-3
+ 
+EXPONENT  (1/n) (2->Poiseuille , 7->Turbulent , 10->Flat)
+7
+ 
+Temperature
+305.0d0
+ 
+N2_dummy
+1.0d0
+ 
+Z
+1.0d0
+ 
+Yc
+0.0d0
+ 
+zv
+0.0d0
+ 
+Urms
+6.0d0
+ 
+!------------------------------------------------
+Patch   2 : inlet_vitiated
+BCtype: INLET_RELAX_UVW_T_Y
+constant      ! all components will be constant
+
+U
+3.5d0
+ 
+V
+0.0d0
+ 
+W
+0.0d0
+ 
+Temperature
+1045.0d0
+ 
+N2_dummy
+1.0d0
+ 
+Z
+0.0d0
+ 
+Yc
+0.0d0
+ 
+zv
+0.0d0
+ 
+!------------------------------------------------
+Patch   3 : outlet
+BCtype: OUTLET_RELAX_P_3D
+constant      ! all components will be constant
+
+Pressure
+101325.0d0
+ 
+!------------------------------------------------
+Patch   4 : walls
+BCtype: WALL_LAW_ADIAB
+constant      ! all components will be constant
+
+!------------------------------------------------
+Patch   5 : ext_walls
+BCtype: WALL_SLIP_ADIAB
+constant      ! all components will be constant
+

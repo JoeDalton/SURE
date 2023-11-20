@@ -1,0 +1,14 @@
+BLOCK Experiment
+  LoadFile      = --> Files/myFile
+  LoadPath      = Experiment
+END BLOCK
+
+BLOCK AS_Coefficients
+  LoadFile      = --> Files/myFile
+  LoadPath      = InputReduction/ActiveDirection/ActiveDirection/xWeight
+  PlotThreshold = 0.00001
+END BLOCK
+
+BLOCK Files
+  myFile      = results/myResultFile.h5
+END BLOCK

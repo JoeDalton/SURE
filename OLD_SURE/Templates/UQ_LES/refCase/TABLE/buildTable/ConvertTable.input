@@ -1,0 +1,4 @@
+InputFile    : MyAwesomeTable.h5
+InputFormat  : HDF
+OutputFile   : UFPV_AVBP.h5
+OutputFormat : AVBP

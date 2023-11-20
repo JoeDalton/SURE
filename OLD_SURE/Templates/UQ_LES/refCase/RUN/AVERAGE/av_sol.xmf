@@ -1,0 +1,398 @@
+<?xml version="1.0" ?>
+<Xdmf Version="2.0" xmlns:xi="http://www.w3.org/2001/XInclude">
+<Domain>
+  <Grid Name="av_sol.h5" GridType="Collection" CollectionType="Spatial" >
+    <Time Value="0.0739189387484"/>
+    <Grid Name="Tetrahedra" GridType="Uniform" >
+       <Topology TopologyType="Tetrahedron" Dimensions="18800792">
+         <DataItem ItemType="Function" Dimensions="75203168" Function="$0 - 1">
+           <DataItem Format="HDF" Dimensions="75203168" NumberType="Int" Precision="8" >
+           ../../MESH/mesh.mesh.h5:/Connectivity/tet->node
+           </DataItem>
+         </DataItem>
+       </Topology>
+       <Geometry GeometryType="X_Y_Z">
+         <DataItem NumberType="Float" ItemType="Uniform" Dimensions="3218095" Precision="8" Format="HDF">
+         ../../MESH/mesh.mesh.h5:/Coordinates/x
+         </DataItem>
+         <DataItem NumberType="Float" ItemType="Uniform" Dimensions="3218095" Precision="8" Format="HDF">
+         ../../MESH/mesh.mesh.h5:/Coordinates/y
+         </DataItem>
+         <DataItem NumberType="Float" ItemType="Uniform" Dimensions="3218095" Precision="8" Format="HDF">
+         ../../MESH/mesh.mesh.h5:/Coordinates/z
+         </DataItem>
+       </Geometry>
+       <Attribute Name="Chi_out" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/Chi_out
+         </DataItem>
+       </Attribute>
+       <Attribute Name="Chi_out2" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/Chi_out2
+         </DataItem>
+       </Attribute>
+       <Attribute Name="Chist_out" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/Chist_out
+         </DataItem>
+       </Attribute>
+       <Attribute Name="DeltaT" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/DeltaT
+         </DataItem>
+       </Attribute>
+       <Attribute Name="H2O" AttributeType="Scalar" Center="Node">
+         <DataItem ItemType="Function" Dimensions="3218095" Function="$0 / $1">
+           <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+             av_sol.h5:/Average/H2O
+           </DataItem>
+           <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+             av_sol.h5:/GaseousPhase/rho
+           </DataItem>
+         </DataItem>
+       </Attribute>
+       <Attribute Name="HO2" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/HO2
+         </DataItem>
+       </Attribute>
+       <Attribute Name="LIKE" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/LIKE
+         </DataItem>
+       </Attribute>
+       <Attribute Name="LITE" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/LITE
+         </DataItem>
+       </Attribute>
+       <Attribute Name="OH" AttributeType="Scalar" Center="Node">
+         <DataItem ItemType="Function" Dimensions="3218095" Function="$0 / $1">
+           <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+             av_sol.h5:/Average/OH
+           </DataItem>
+           <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+             av_sol.h5:/GaseousPhase/rho
+           </DataItem>
+         </DataItem>
+       </Attribute>
+       <Attribute Name="P" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/P
+         </DataItem>
+       </Attribute>
+       <Attribute Name="P2" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/P2
+         </DataItem>
+       </Attribute>
+       <Attribute Name="P3" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/P3
+         </DataItem>
+       </Attribute>
+       <Attribute Name="P4" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/P4
+         </DataItem>
+       </Attribute>
+       <Attribute Name="Sz_out" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/Sz_out
+         </DataItem>
+       </Attribute>
+       <Attribute Name="T" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/T
+         </DataItem>
+       </Attribute>
+       <Attribute Name="T2" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/T2
+         </DataItem>
+       </Attribute>
+       <Attribute Name="T3" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/T3
+         </DataItem>
+       </Attribute>
+       <Attribute Name="T4" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/T4
+         </DataItem>
+       </Attribute>
+       <Attribute Name="WYc_out" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/WYc_out
+         </DataItem>
+       </Attribute>
+       <Attribute Name="W_YC" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/W_YC
+         </DataItem>
+       </Attribute>
+       <Attribute Name="Y2N2_dummy" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/Y2N2_dummy
+         </DataItem>
+       </Attribute>
+       <Attribute Name="Y2Yc" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/Y2Yc
+         </DataItem>
+       </Attribute>
+       <Attribute Name="Y2Z" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/Y2Z
+         </DataItem>
+       </Attribute>
+       <Attribute Name="Y2zv" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/Y2zv
+         </DataItem>
+       </Attribute>
+       <Attribute Name="YN2_dummy" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/YN2_dummy
+         </DataItem>
+       </Attribute>
+       <Attribute Name="YYc" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/YYc
+         </DataItem>
+       </Attribute>
+       <Attribute Name="YZ" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/YZ
+         </DataItem>
+       </Attribute>
+       <Attribute Name="Yzv" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/Yzv
+         </DataItem>
+       </Attribute>
+       <Attribute Name="c_out" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/c_out
+         </DataItem>
+       </Attribute>
+       <Attribute Name="gamma_bar" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/gamma_bar
+         </DataItem>
+       </Attribute>
+       <Attribute Name="r_bar" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/r_bar
+         </DataItem>
+       </Attribute>
+       <Attribute Name="rad_source" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/rad_source
+         </DataItem>
+       </Attribute>
+       <Attribute Name="rad_source2" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/rad_source2
+         </DataItem>
+       </Attribute>
+       <Attribute Name="rho" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/rho
+         </DataItem>
+       </Attribute>
+       <Attribute Name="rhoEtotal" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/rhoEtotal
+         </DataItem>
+       </Attribute>
+       <Attribute Name="u" AttributeType="Scalar" Center="Node">
+         <DataItem ItemType="Function" Dimensions="3218095" Function="$0 / $1">
+           <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+             av_sol.h5:/Average/rhou
+           </DataItem>
+           <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+             av_sol.h5:/GaseousPhase/rho
+           </DataItem>
+         </DataItem>
+       </Attribute>
+       <Attribute Name="rhouTs" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/rhouTs
+         </DataItem>
+       </Attribute>
+       <Attribute Name="v" AttributeType="Scalar" Center="Node">
+         <DataItem ItemType="Function" Dimensions="3218095" Function="$0 / $1">
+           <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+             av_sol.h5:/Average/rhov
+           </DataItem>
+           <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+             av_sol.h5:/GaseousPhase/rho
+           </DataItem>
+         </DataItem>
+       </Attribute>
+       <Attribute Name="w" AttributeType="Scalar" Center="Node">
+         <DataItem ItemType="Function" Dimensions="3218095" Function="$0 / $1">
+           <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+             av_sol.h5:/Average/rhow
+           </DataItem>
+           <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+             av_sol.h5:/GaseousPhase/rho
+           </DataItem>
+         </DataItem>
+       </Attribute>
+       <Attribute Name="ss_bar" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/ss_bar
+         </DataItem>
+       </Attribute>
+       <Attribute Name="u" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/u
+         </DataItem>
+       </Attribute>
+       <Attribute Name="u2" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/u2
+         </DataItem>
+       </Attribute>
+       <Attribute Name="u3" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/u3
+         </DataItem>
+       </Attribute>
+       <Attribute Name="u4" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/u4
+         </DataItem>
+       </Attribute>
+       <Attribute Name="uT" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/uT
+         </DataItem>
+       </Attribute>
+       <Attribute Name="uv" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/uv
+         </DataItem>
+       </Attribute>
+       <Attribute Name="uw" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/uw
+         </DataItem>
+       </Attribute>
+       <Attribute Name="v" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/v
+         </DataItem>
+       </Attribute>
+       <Attribute Name="v2" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/v2
+         </DataItem>
+       </Attribute>
+       <Attribute Name="v3" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/v3
+         </DataItem>
+       </Attribute>
+       <Attribute Name="v4" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/v4
+         </DataItem>
+       </Attribute>
+       <Attribute Name="vT" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/vT
+         </DataItem>
+       </Attribute>
+       <Attribute Name="vw" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/vw
+         </DataItem>
+       </Attribute>
+       <Attribute Name="w" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/w
+         </DataItem>
+       </Attribute>
+       <Attribute Name="w2" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/w2
+         </DataItem>
+       </Attribute>
+       <Attribute Name="w3" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/w3
+         </DataItem>
+       </Attribute>
+       <Attribute Name="w4" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/w4
+         </DataItem>
+       </Attribute>
+       <Attribute Name="wT" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/wT
+         </DataItem>
+       </Attribute>
+       <Attribute Name="wall_EnergyFlux_normal" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/wall_EnergyFlux_normal
+         </DataItem>
+       </Attribute>
+       <Attribute Name="wall_EnergyFlux_x" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/wall_EnergyFlux_x
+         </DataItem>
+       </Attribute>
+       <Attribute Name="wall_EnergyFlux_y" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/wall_EnergyFlux_y
+         </DataItem>
+       </Attribute>
+       <Attribute Name="wall_EnergyFlux_z" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/wall_EnergyFlux_z
+         </DataItem>
+       </Attribute>
+       <Attribute Name="wall_Stress_x" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/wall_Stress_x
+         </DataItem>
+       </Attribute>
+       <Attribute Name="wall_Stress_y" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/wall_Stress_y
+         </DataItem>
+       </Attribute>
+       <Attribute Name="wall_Stress_z" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/wall_Stress_z
+         </DataItem>
+       </Attribute>
+       <Attribute Name="wall_Yplus" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/wall_Yplus
+         </DataItem>
+       </Attribute>
+       <Attribute Name="wall_normal_Stress" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/wall_normal_Stress
+         </DataItem>
+       </Attribute>
+       <Attribute Name="wall_shear_Stress" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/wall_shear_Stress
+         </DataItem>
+       </Attribute>
+       <Attribute Name="z_out" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           av_sol.h5:/Average/z_out
+         </DataItem>
+       </Attribute>
+    </Grid>
+  </Grid>
+</Domain>
+</Xdmf>

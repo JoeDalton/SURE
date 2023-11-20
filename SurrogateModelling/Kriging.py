@@ -4,7 +4,6 @@ from numpy.linalg import inv
 from scipy.special import erfinv
 from scipy.stats import linregress
 from Numerics.Algebra import NRMSE, NMAE
-#from sklearn.linear_model import LinearRegression
 from SurrogateModelling.SurrogateModel import SurrogateModel as SM
 from SurrogateModelling.SurrogateTools.Autocorellation_functions import *
 from SurrogateModelling.SurrogateTools.optimisationTools import *

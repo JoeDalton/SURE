@@ -1,0 +1,7 @@
+'./../MESH/mesh.mesh.h5'                   ! mesh file
+'./SOLUT/cold_no_recirc.h5'                   ! solut file
+'./SOLUT/current_hot.h5'          ! new solut file
+1                             ! itime = 1 => dtsum set to 0
+'./Output_Table_bin_2.96mm/Init_1Dflame_avbp.dat'! 1D solution flame profle to use
+'circle'                      ! 1D solution flame profle to use
+0.1d0 0.0d0 0.0d0 0.25d0 ! center (x,y,z) and radius of the sphere

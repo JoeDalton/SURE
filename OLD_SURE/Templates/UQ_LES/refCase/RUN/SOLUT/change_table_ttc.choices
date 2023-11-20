@@ -1,0 +1,4 @@
+'../../MESH/mesh.mesh.h5'                   ! mesh file
+'./current_oldTable.h5'                   ! solut file
+'./current.h5'          ! new solut file
+0                             ! itime = 1 => dtsum set to 0

@@ -1,0 +1,109 @@
+#------------------
+# DiffZ Flame Parameters
+#------------------
+BLOCK Parameters
+  # Initial Solution
+  Initial_Solution_File    = InitFlame.h5
+  Initial_Solution_Format  = HDF
+
+  # Output Solution(s)
+  Freq_Iteration_Display   = 10
+  Output_Level             = 1
+  Output_Solution_Niter    = 100
+  Output_Solution_Format   = HDF
+  Output_Solution_Name     = Sols/Solution
+
+  # Flame parameters
+  Strain_Rate                     = 100.0
+  Composition_Block_Z0            = Oxidizer 
+  Composition_Block_Z1            = Fuel 
+  UnityLewisNumbers               = YES #NO
+  ActivateGrad_W                  = NO  #YES
+  ActivateDiffusionCorrection     = NO  #YES
+  ActivateFullDifferentialEffects = NO  #YES
+
+  # Advanced parameters
+  ODESolver_Parameters            = ODE_Parameters
+  Grid_Adaptation_Parameters      = GRID_Parameters
+END BLOCK
+
+#------------------
+# GRID Parameters
+#------------------
+BLOCK GRID_Parameters
+  Adaptation = NO
+END BLOCK
+
+#------------------
+# ODE Parameters
+#------------------
+#BLOCK ODE_Diffusion 
+#  ODE_Solver              = ROCK2
+#  Step_Size_Determination = Adaptation
+#  InitialStep             = 1.0e-08
+#  Relative_Tolerance      = 1.0e-02 
+#  Absolute_Tolerance      = 1.0e-05
+#END BLOCK
+BLOCK ODE_Parameters
+  ODE_Solver              = ROCK2
+  FinalTime               = 1.0e-01
+  Step_Size_Determination = Adaptation
+  InitialStep             = 1.0e-09
+  Relative_Tolerance      = 1.0e-07
+  Absolute_Tolerance      = 1.0e-010
+END BLOCK
+#BLOCK ODE_Parameters
+#  ODE_Solver              = BDF2
+#  FinalTime               = 5.0e-02
+#  InitialStep             = 1.0e-09
+#  Step_Size_Determination = Adaptation #Constant
+#  Relative_Tolerance      = 1.0e-05 
+#  Absolute_Tolerance      = 1.0e-08
+#  # Newton parameters     
+#  NewtonSolver            = NLEQERR
+#  NewtonTolerance         = 1.0e-03
+#  NewtonEpsilonScaling    = 1.0e-20
+#  CheckFailure            = NO
+#  MaxIterations           = 30
+#  Lambda_0                = 1.0e-07
+#  Lambda_min              = 1.0e-09
+#  Lambda_Estimator        = DF 
+#  Switch_QNERR            = NO
+#  Jacobian_type           = blocks_optim
+#  Jacobian_epsilon        = 1.0e-08
+#END BLOCK
+#BLOCK ODE_Parameters
+#  ODE_Solver              = Euler
+#  FinalTime               = 5e-03
+#  Step_Size_Determination = Constant
+#  InitialStep             = 1e-08
+#END BLOCK
+
+#------------------
+# Composition Z0 
+#------------------
+BLOCK Oxidizer 
+  Mechanism        = SampledMech.h5
+  CompoMode        = Classic 
+  Temperature      = 1030
+  Pressure         = 101325
+  H2O	             = 0.0989
+  N2               = 0.7534
+  O2	             = 0.1474
+  SpeciesFractions = MOLE
+  Renormalize      = YES
+END BLOCK
+
+#------------------
+# Composition Z1 
+#------------------
+BLOCK Fuel 
+  Mechanism        = SampledMech.h5
+  CompoMode        = Classic 
+  Temperature      = 305
+  Pressure         = 101325
+  H2               = 0.2537
+  N2	             = 0.7427
+  SpeciesFractions = MOLE
+  Renormalize      = YES
+END BLOCK

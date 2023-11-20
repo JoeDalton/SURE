@@ -1,0 +1,3 @@
+To be used in UQ studies for the Cabra flame : 
+CreateTable creates a new table with the sampled chemistry/co-flow temperature
+ModifyAVBPRun.py adapts the case to a newly generated table (thermo in the domain, boundary conditions)

@@ -1,0 +1,112 @@
+#----------------------------
+# General Parameters 
+#----------------------------
+
+BLOCK Parameters
+  Table_Type = UFPV
+  Table_Name = MyAwesomeTable.h5
+  Table_Coordinates        = Z S_Z C Chi_st             # Warning : linked to the following block names
+  Compute_NSCBC_terms      = yes                    # Default : yes
+  NSCBC_variables          = PROG_VAR Z
+END BLOCK
+
+BLOCK Configuration
+  Mechanism                = ./refCase/SampledMech.h5
+  ThermoMode               = TPY
+  Unity_Lewis              = yes
+END BLOCK
+
+BLOCK Flamelets
+  Flamelet_Type            = DiffZ                # (DiffX|DiffZ)
+  List                     = runs.txt             # .txt file containing only .h5 solutions in FPV and folders for RFPV/UFPV
+  Sorting_By_Tmax          = yes                  # (yes|no)
+  Delta_Tmax               = 20                   # Required only if Sorting_By_Tmax = yes
+END BLOCK
+
+#----------------------------
+# Mixture Fraction parameters
+#----------------------------
+BLOCK Z
+  Type                     = PASSIVE_Y            # (ONESTEP|PREMIXED|PASSIVE_Y|BILGER)
+  Passive_Species          = N2                   # Passive Species                         ## required if PASSIVE_Y
+  Fuel_name                = H2                  # Fuel Species                            ## required (except for PASSIVE_Y)
+  Oxidizer_name            = O2                   # Oxidizer Species                        ## required (except for PASSIVE_Y)
+  #Fuel_YkMixture           = 1.0                  # Fuel Mass Fraction in Fuel Mixture      ## required if PREMIXED
+  Fuel_side                = Right                 # Always required : Right
+  #Oxidizer_YkMixture       = 0.233                # Oxidizer Mass Fraction in Ox Mixture    ## required if PREMIXED
+  #Stoechio_Coeff_Mass      = 4.0                  # Mass Stoechimoetric ratio (value)       ## required if ONESTEP or PREMIXED
+  Clip_Z                   = no                   # (yes|no)
+  Compute_Ffunction        = no                   # (yes|no)
+  Block_Mesh_Z             = Mesh_Z               # Block with Z mesh
+  Z_st                     = 0.483                # Mixture fraction at stoechiometry
+END BLOCK
+
+BLOCK Mesh_Z
+  Name                     = Z
+  Type                     = TwoPowerLaw          #(Regular|Linear|PowerLaw|TwoLinear|TwoPowerLaw)
+  Size                     = 100                  # Number of points in the new mesh
+  Min                      = 0                    # Used only if Mesh_type = Linear, PowerLaw or TwoLinear (default = 0)
+  Max                      = 1                    # Used only if Mesh_type = Linear, PowerLaw or TwoLinear (default = 1)
+  Exponent                 = 2.3                    # Only if Mesh_type = PowerLaw (default = 1)
+  x_cut                    = 0.2        # Mandatory if Mesh_type = TwoLinear or TwoPowerLaw
+  i_cut                    = 30        # Mandatory if Mesh_type = TwoLinear or TwoPowerLaw
+END BLOCK
+
+#-----------------------------
+# Progress Variable parameters
+#-----------------------------
+BLOCK Yc
+  Definition_Yc            = FPV                  #(Classic|FPV)
+  Species_Yc               = H2O O2
+  Weights_Yc               = 1 -0.37775270159964136
+  Clip_Yc                  = no                  # (yes|no)
+  Z_Lambda                 = 0.1                 # Value near Z_MR for UFPV
+END BLOCK
+
+#-----------------------------
+# Normalized Progress Variable Mesh
+#-----------------------------
+BLOCK Mesh_C # ZooperNice 153 pts
+  Type                     = GeomLinGeom
+  Min                      = 0
+  Max                      = 1
+  First_Cell_Size          = 1e-10
+  Last_Cell_Size           = 1e-8
+  Constant_Cell_Size       = 0.02
+  Growth_Rate_start        = 1.3
+  Growth_Rate_end          = 1.4
+END BLOCK
+#----------------------------
+# Segregation parameters
+#----------------------------
+
+BLOCK S_Z
+  Filter_Configuration        = Default           # (Default|Advanced)
+  Block_Mesh_S_Z              = Mesh_S_Z          # Mesh Block for Segregation variable
+  Block_Mesh_Z_tild           = Mesh_Z            # (Default : Mesh_Z)
+  Variable_To_Filter          = MIXT_FRAC
+  Filter_Type                 = Filter_BetaPDF    # Required only if Advanced is selected
+  Integ_Order                 = 2                 # Required only if Advanced is selected
+  Disable_FilterWall          = no                # (yes|no) Required only if Advanced is selected
+  Disable_FilterWCP           = no                # (yes|no) Required only if Advanced is selected
+  Disable_FilterWDPAH         = no                # (yes|no) Required only if Advanced is selected
+  Disable_FilterThermoVar     = yes               # (yes|no) Required only if Advanced is selected
+  Disable_FilterTransportVar  = yes               # (yes|no) Required only if Advanced is selected
+  Treatment_Enthalpy_Equation = AlphaE_unity      # Choose: AlphaE_unity, AlphaE_based, Enforce_FlatEntahlpy
+END BLOCK
+
+#----------------------------------------
+# Mesh parameters for Segregation
+#----------------------------------------
+BLOCK Mesh_S_Z
+  Type                     = PowerLaw             # (Regular|Linear|PowerLaw|TwoLinear|TwoPowerLaw)
+  Size                     = 20                   # Number of points in the new mesh
+  Min                      = 0                    # Used only if Mesh_type = Linear, PowerLaw or TwoLinear or TwoPowerLaw (default = 0.0)
+  Max                      = 1.00                 # Used only if Mesh_type = Linear, PowerLaw or TwoLinear or TwoPowerLaw (default = 1.0)
+  Exponent                 = 2.3                  # Only if Mesh_type = PowerLaw or TwoPowerLaw (default = 1) 
+  x_cut                    = To_be_defined        # Mandatory if Mesh_type = TwoLinear or TwoPowerLaw
+  i_cut                    = To_be_defined        # Mandatory if Mesh_type = TwoLinear or TwoPowerLaw
+END BLOCK
+
+
+

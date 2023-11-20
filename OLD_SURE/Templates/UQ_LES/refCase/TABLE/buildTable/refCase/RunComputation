@@ -1,0 +1,5 @@
+CreateAgathSolution.e > outputCre.txt
+UnsteadyDiffZFlame.e > outputUnst.txt
+ls Sols/ > toto.txt
+awk '{print "Sols/" $0;}' toto.txt > soluts.txt
+rm toto.txt

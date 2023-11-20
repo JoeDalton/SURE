@@ -1,0 +1,52 @@
+BLOCK Simulation
+  ID            = myDummySimulation
+  simuType      = AGATH_0D_IDT
+  refFolderPath = refCase0D
+END BLOCK
+
+BLOCK Experiment
+  ID        = myDummyExperiment
+  ExpPath   = Experiment
+
+  SUBBLOCK Variable_Reaction
+    mode                      = Multiple
+    number                    = 33
+    firstIdx                  = 1
+    #idxList                   = 16 17 # Can replace firstIdx & number
+    ID                        = A_{%}
+    targetFile                = SampledMech.h5
+    targetDictPath            = Kinetics/Reaction_%/Arrhenius/A
+    distribution              = Normal
+    transformationType        = NormalToLogNormal
+    transformationFrom        = Files
+    transformationFiles       = --> Files/myFile Files/myFile
+    transformationPaths       = Kinetics/Reaction_%/Arrhenius/A Kinetics/Reaction_%/Arrhenius/A_UF
+  END SUBBLOCK
+
+  SUBBLOCK Variable_Temperature
+    mode                      = Single
+    ID                        = T
+    targetFile                = Reactor.input
+    targetDictPath            = Initial_Composition/Temperature
+    distribution              = Uniform
+    transformationType        = StretchedUniform
+    transformationFrom        = Values
+    transformationValues      = 880.0 940.0
+  END SUBBLOCK
+END BLOCK
+
+BLOCK Controller
+  ID          = myController
+  nSample     = 100
+  sequence    = Sobol
+  nThread     = 11
+  resultFile  = results/chemAndTempResultFile.h5
+  QoIPath     = Data/QoI
+  InputPath   = Data/Inputs
+  isContinued = False
+  outputLevel = 0
+END BLOCK
+
+BLOCK Files
+  myFile      = /Users/lavabreg/agath/data/Mechanisms/H2_Konnov/H2_Konnov_With_UF.h5
+END BLOCK

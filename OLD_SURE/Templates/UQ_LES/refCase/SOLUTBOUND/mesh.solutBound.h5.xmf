@@ -1,0 +1,220 @@
+<?xml version="1.0" ?>
+<!DOCTYPE Xdmf SYSTEM "Xdmf.dtd" []>
+<Xdmf xmlns:xi="http://www.w3.org/2003/XInclude" Version="2.0">
+<Domain>
+  <Grid GridType="Collection" CollectionType="Temporal" >
+     <Grid GridType="Collection" CollectionType="Spatial" >
+     <Grid Collection="../MESH/mesh.mesh.h5" Name="inlet_fuel">
+        <Topology TopologyType="Triangle" Dimensions="880">
+           <DataItem ItemType="Function" Dimensions="2640" Function="$0 - 1">
+              <DataItem Format="HDF" Dimensions="2640" NumberType="Float" Precision="8" >
+               ../MESH/mesh.mesh.h5:/Patch/1/Boundary/bnd_tri->node
+              </DataItem>
+           </DataItem>
+        </Topology>
+        <Geometry GeometryType="X_Y_Z">
+           <DataItem NumberType="Float" ItemType="Uniform" Dimensions="       477" Precision="8" Format="HDF">
+              ../MESH/mesh.mesh.h5:/Patch/1/Coordinates/x
+           </DataItem>
+           <DataItem NumberType="Float" ItemType="Uniform" Dimensions="       477" Precision="8" Format="HDF">
+              ../MESH/mesh.mesh.h5:/Patch/1/Coordinates/y
+           </DataItem>
+           <DataItem NumberType="Float" ItemType="Uniform" Dimensions="       477" Precision="8" Format="HDF">
+              ../MESH/mesh.mesh.h5:/Patch/1/Coordinates/z
+           </DataItem>
+        </Geometry>
+        <Attribute Name="U" AttributeType="Scalar" Center="Node">
+           <DataItem Format="HDF" Dimensions="477" NumberType="Float" Precision="8">
+              ./mesh.solutBound.h5:/Patch_001-inlet_fuel/U
+           </DataItem>
+        </Attribute>
+        <Attribute Name="V" AttributeType="Scalar" Center="Node">
+           <DataItem Format="HDF" Dimensions="477" NumberType="Float" Precision="8">
+              ./mesh.solutBound.h5:/Patch_001-inlet_fuel/V
+           </DataItem>
+        </Attribute>
+        <Attribute Name="W" AttributeType="Scalar" Center="Node">
+           <DataItem Format="HDF" Dimensions="477" NumberType="Float" Precision="8">
+              ./mesh.solutBound.h5:/Patch_001-inlet_fuel/W
+           </DataItem>
+        </Attribute>
+        <Attribute Name="Temperature" AttributeType="Scalar" Center="Node">
+           <DataItem Format="HDF" Dimensions="477" NumberType="Float" Precision="8">
+              ./mesh.solutBound.h5:/Patch_001-inlet_fuel/Temperature
+           </DataItem>
+        </Attribute>
+        <Attribute Name="N2_dummy" AttributeType="Scalar" Center="Node">
+           <DataItem Format="HDF" Dimensions="477" NumberType="Float" Precision="8">
+              ./mesh.solutBound.h5:/Patch_001-inlet_fuel/N2_dummy
+           </DataItem>
+        </Attribute>
+        <Attribute Name="Z" AttributeType="Scalar" Center="Node">
+           <DataItem Format="HDF" Dimensions="477" NumberType="Float" Precision="8">
+              ./mesh.solutBound.h5:/Patch_001-inlet_fuel/Z
+           </DataItem>
+        </Attribute>
+        <Attribute Name="Yc" AttributeType="Scalar" Center="Node">
+           <DataItem Format="HDF" Dimensions="477" NumberType="Float" Precision="8">
+              ./mesh.solutBound.h5:/Patch_001-inlet_fuel/Yc
+           </DataItem>
+        </Attribute>
+        <Attribute Name="zv" AttributeType="Scalar" Center="Node">
+           <DataItem Format="HDF" Dimensions="477" NumberType="Float" Precision="8">
+              ./mesh.solutBound.h5:/Patch_001-inlet_fuel/zv
+           </DataItem>
+        </Attribute>
+        <Attribute Name="Urms" AttributeType="Scalar" Center="Node">
+           <DataItem Format="HDF" Dimensions="477" NumberType="Float" Precision="8">
+              ./mesh.solutBound.h5:/Patch_001-inlet_fuel/Urms
+           </DataItem>
+        </Attribute>
+     </Grid>
+     <Grid Collection="../MESH/mesh.mesh.h5" Name="inlet_vitiated">
+        <Topology TopologyType="Triangle" Dimensions="16270">
+           <DataItem ItemType="Function" Dimensions="48810" Function="$0 - 1">
+              <DataItem Format="HDF" Dimensions="48810" NumberType="Float" Precision="8" >
+               ../MESH/mesh.mesh.h5:/Patch/2/Boundary/bnd_tri->node
+              </DataItem>
+           </DataItem>
+        </Topology>
+        <Geometry GeometryType="X_Y_Z">
+           <DataItem NumberType="Float" ItemType="Uniform" Dimensions="      8220" Precision="8" Format="HDF">
+              ../MESH/mesh.mesh.h5:/Patch/2/Coordinates/x
+           </DataItem>
+           <DataItem NumberType="Float" ItemType="Uniform" Dimensions="      8220" Precision="8" Format="HDF">
+              ../MESH/mesh.mesh.h5:/Patch/2/Coordinates/y
+           </DataItem>
+           <DataItem NumberType="Float" ItemType="Uniform" Dimensions="      8220" Precision="8" Format="HDF">
+              ../MESH/mesh.mesh.h5:/Patch/2/Coordinates/z
+           </DataItem>
+        </Geometry>
+        <Attribute Name="U" AttributeType="Scalar" Center="Node">
+           <DataItem Format="HDF" Dimensions="8220" NumberType="Float" Precision="8">
+              ./mesh.solutBound.h5:/Patch_002-inlet_vitiated/U
+           </DataItem>
+        </Attribute>
+        <Attribute Name="V" AttributeType="Scalar" Center="Node">
+           <DataItem Format="HDF" Dimensions="8220" NumberType="Float" Precision="8">
+              ./mesh.solutBound.h5:/Patch_002-inlet_vitiated/V
+           </DataItem>
+        </Attribute>
+        <Attribute Name="W" AttributeType="Scalar" Center="Node">
+           <DataItem Format="HDF" Dimensions="8220" NumberType="Float" Precision="8">
+              ./mesh.solutBound.h5:/Patch_002-inlet_vitiated/W
+           </DataItem>
+        </Attribute>
+        <Attribute Name="Temperature" AttributeType="Scalar" Center="Node">
+           <DataItem Format="HDF" Dimensions="8220" NumberType="Float" Precision="8">
+              ./mesh.solutBound.h5:/Patch_002-inlet_vitiated/Temperature
+           </DataItem>
+        </Attribute>
+        <Attribute Name="N2_dummy" AttributeType="Scalar" Center="Node">
+           <DataItem Format="HDF" Dimensions="8220" NumberType="Float" Precision="8">
+              ./mesh.solutBound.h5:/Patch_002-inlet_vitiated/N2_dummy
+           </DataItem>
+        </Attribute>
+        <Attribute Name="Z" AttributeType="Scalar" Center="Node">
+           <DataItem Format="HDF" Dimensions="8220" NumberType="Float" Precision="8">
+              ./mesh.solutBound.h5:/Patch_002-inlet_vitiated/Z
+           </DataItem>
+        </Attribute>
+        <Attribute Name="Yc" AttributeType="Scalar" Center="Node">
+           <DataItem Format="HDF" Dimensions="8220" NumberType="Float" Precision="8">
+              ./mesh.solutBound.h5:/Patch_002-inlet_vitiated/Yc
+           </DataItem>
+        </Attribute>
+        <Attribute Name="zv" AttributeType="Scalar" Center="Node">
+           <DataItem Format="HDF" Dimensions="8220" NumberType="Float" Precision="8">
+              ./mesh.solutBound.h5:/Patch_002-inlet_vitiated/zv
+           </DataItem>
+        </Attribute>
+     </Grid>
+     <Grid Collection="../MESH/mesh.mesh.h5" Name="outlet">
+        <Topology TopologyType="Triangle" Dimensions="5140">
+           <DataItem ItemType="Function" Dimensions="15420" Function="$0 - 1">
+              <DataItem Format="HDF" Dimensions="15420" NumberType="Float" Precision="8" >
+               ../MESH/mesh.mesh.h5:/Patch/3/Boundary/bnd_tri->node
+              </DataItem>
+           </DataItem>
+        </Topology>
+        <Geometry GeometryType="X_Y_Z">
+           <DataItem NumberType="Float" ItemType="Uniform" Dimensions="      2640" Precision="8" Format="HDF">
+              ../MESH/mesh.mesh.h5:/Patch/3/Coordinates/x
+           </DataItem>
+           <DataItem NumberType="Float" ItemType="Uniform" Dimensions="      2640" Precision="8" Format="HDF">
+              ../MESH/mesh.mesh.h5:/Patch/3/Coordinates/y
+           </DataItem>
+           <DataItem NumberType="Float" ItemType="Uniform" Dimensions="      2640" Precision="8" Format="HDF">
+              ../MESH/mesh.mesh.h5:/Patch/3/Coordinates/z
+           </DataItem>
+        </Geometry>
+        <Attribute Name="Pressure" AttributeType="Scalar" Center="Node">
+           <DataItem Format="HDF" Dimensions="2640" NumberType="Float" Precision="8">
+              ./mesh.solutBound.h5:/Patch_003-outlet/Pressure
+           </DataItem>
+        </Attribute>
+     </Grid>
+     <Grid Collection="../MESH/mesh.mesh.h5" Name="lip_walls">
+        <Topology TopologyType="Triangle" Dimensions="890">
+           <DataItem ItemType="Function" Dimensions="2670" Function="$0 - 1">
+              <DataItem Format="HDF" Dimensions="2670" NumberType="Float" Precision="8" >
+               ../MESH/mesh.mesh.h5:/Patch/4/Boundary/bnd_tri->node
+              </DataItem>
+           </DataItem>
+        </Topology>
+        <Geometry GeometryType="X_Y_Z">
+           <DataItem NumberType="Float" ItemType="Uniform" Dimensions="       533" Precision="8" Format="HDF">
+              ../MESH/mesh.mesh.h5:/Patch/4/Coordinates/x
+           </DataItem>
+           <DataItem NumberType="Float" ItemType="Uniform" Dimensions="       533" Precision="8" Format="HDF">
+              ../MESH/mesh.mesh.h5:/Patch/4/Coordinates/y
+           </DataItem>
+           <DataItem NumberType="Float" ItemType="Uniform" Dimensions="       533" Precision="8" Format="HDF">
+              ../MESH/mesh.mesh.h5:/Patch/4/Coordinates/z
+           </DataItem>
+        </Geometry>
+     </Grid>
+     <Grid Collection="../MESH/mesh.mesh.h5" Name="walls">
+        <Topology TopologyType="Triangle" Dimensions="5334">
+           <DataItem ItemType="Function" Dimensions="16002" Function="$0 - 1">
+              <DataItem Format="HDF" Dimensions="16002" NumberType="Float" Precision="8" >
+               ../MESH/mesh.mesh.h5:/Patch/5/Boundary/bnd_tri->node
+              </DataItem>
+           </DataItem>
+        </Topology>
+        <Geometry GeometryType="X_Y_Z">
+           <DataItem NumberType="Float" ItemType="Uniform" Dimensions="      2771" Precision="8" Format="HDF">
+              ../MESH/mesh.mesh.h5:/Patch/5/Coordinates/x
+           </DataItem>
+           <DataItem NumberType="Float" ItemType="Uniform" Dimensions="      2771" Precision="8" Format="HDF">
+              ../MESH/mesh.mesh.h5:/Patch/5/Coordinates/y
+           </DataItem>
+           <DataItem NumberType="Float" ItemType="Uniform" Dimensions="      2771" Precision="8" Format="HDF">
+              ../MESH/mesh.mesh.h5:/Patch/5/Coordinates/z
+           </DataItem>
+        </Geometry>
+     </Grid>
+     <Grid Collection="../MESH/mesh.mesh.h5" Name="ext_walls">
+        <Topology TopologyType="Triangle" Dimensions="5500">
+           <DataItem ItemType="Function" Dimensions="16500" Function="$0 - 1">
+              <DataItem Format="HDF" Dimensions="16500" NumberType="Float" Precision="8" >
+               ../MESH/mesh.mesh.h5:/Patch/6/Boundary/bnd_tri->node
+              </DataItem>
+           </DataItem>
+        </Topology>
+        <Geometry GeometryType="X_Y_Z">
+           <DataItem NumberType="Float" ItemType="Uniform" Dimensions="      2852" Precision="8" Format="HDF">
+              ../MESH/mesh.mesh.h5:/Patch/6/Coordinates/x
+           </DataItem>
+           <DataItem NumberType="Float" ItemType="Uniform" Dimensions="      2852" Precision="8" Format="HDF">
+              ../MESH/mesh.mesh.h5:/Patch/6/Coordinates/y
+           </DataItem>
+           <DataItem NumberType="Float" ItemType="Uniform" Dimensions="      2852" Precision="8" Format="HDF">
+              ../MESH/mesh.mesh.h5:/Patch/6/Coordinates/z
+           </DataItem>
+        </Geometry>
+     </Grid>
+     </Grid>
+  </Grid>
+</Domain>
+</Xdmf>

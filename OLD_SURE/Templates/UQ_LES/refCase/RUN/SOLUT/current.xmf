@@ -1,0 +1,285 @@
+<?xml version="1.0" ?>
+<Xdmf Version="2.0" xmlns:xi="http://www.w3.org/2001/XInclude">
+<Domain>
+  <Grid Name="current.h5" GridType="Collection" CollectionType="Spatial" >
+    <Time Value="0.0310566251209"/>
+    <Grid Name="Tetrahedra" GridType="Uniform" >
+       <Topology TopologyType="Tetrahedron" Dimensions="18800792">
+         <DataItem ItemType="Function" Dimensions="75203168" Function="$0 - 1">
+           <DataItem Format="HDF" Dimensions="75203168" NumberType="Int" Precision="8" >
+           ../../MESH/mesh.mesh.h5:/Connectivity/tet->node
+           </DataItem>
+         </DataItem>
+       </Topology>
+       <Geometry GeometryType="X_Y_Z">
+         <DataItem NumberType="Float" ItemType="Uniform" Dimensions="3218095" Precision="8" Format="HDF">
+         ../../MESH/mesh.mesh.h5:/Coordinates/x
+         </DataItem>
+         <DataItem NumberType="Float" ItemType="Uniform" Dimensions="3218095" Precision="8" Format="HDF">
+         ../../MESH/mesh.mesh.h5:/Coordinates/y
+         </DataItem>
+         <DataItem NumberType="Float" ItemType="Uniform" Dimensions="3218095" Precision="8" Format="HDF">
+         ../../MESH/mesh.mesh.h5:/Coordinates/z
+         </DataItem>
+       </Geometry>
+
+       <Attribute Name="Velocity" AttributeType="Vector" Center="Node">
+         <DataItem ItemType="Function" Dimensions="3218095 3" Function="join($0 , $1 , $2 )">
+           <DataItem ItemType="Function" Dimensions="3218095" Function="$0 / $1">
+             <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8"> current.h5:/GaseousPhase/rhou </DataItem>
+             <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8"> current.h5:/GaseousPhase/rho </DataItem>
+           </DataItem>
+           <DataItem ItemType="Function" Dimensions="3218095" Function="$0 / $1">
+             <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8"> current.h5:/GaseousPhase/rhov </DataItem>
+             <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8"> current.h5:/GaseousPhase/rho </DataItem>
+           </DataItem>
+           <DataItem ItemType="Function" Dimensions="3218095" Function="$0 / $1">
+             <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8"> current.h5:/GaseousPhase/rhow </DataItem>
+             <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8"> current.h5:/GaseousPhase/rho </DataItem>
+           </DataItem>
+         </DataItem>
+       </Attribute>
+       <Attribute Name="Chi_out" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/Chi_out
+         </DataItem>
+       </Attribute>
+       <Attribute Name="Chi_sgs_out" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/Chi_sgs_out
+         </DataItem>
+       </Attribute>
+       <Attribute Name="Chist_out" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/Chist_out
+         </DataItem>
+       </Attribute>
+       <Attribute Name="Cp_bar" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/Cp_bar
+         </DataItem>
+       </Attribute>
+       <Attribute Name="DeltaT" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/DeltaT
+         </DataItem>
+       </Attribute>
+       <Attribute Name="Prod_zv_out" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/Prod_zv_out
+         </DataItem>
+       </Attribute>
+       <Attribute Name="Sz_out" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/Sz_out
+         </DataItem>
+       </Attribute>
+       <Attribute Name="WYc_out" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/WYc_out
+         </DataItem>
+       </Attribute>
+       <Attribute Name="Yc_eq_out" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/Yc_eq_out
+         </DataItem>
+       </Attribute>
+       <Attribute Name="Yc_f_out" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/Yc_f_out
+         </DataItem>
+       </Attribute>
+       <Attribute Name="c_out" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/c_out
+         </DataItem>
+       </Attribute>
+       <Attribute Name="gamma_bar" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/gamma_bar
+         </DataItem>
+       </Attribute>
+       <Attribute Name="hr" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/hr
+         </DataItem>
+       </Attribute>
+       <Attribute Name="lambda_fpi" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/lambda_fpi
+         </DataItem>
+       </Attribute>
+       <Attribute Name="mpi_rank" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/mpi_rank
+         </DataItem>
+       </Attribute>
+       <Attribute Name="pressure" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/pressure
+         </DataItem>
+       </Attribute>
+       <Attribute Name="r_bar" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/r_bar
+         </DataItem>
+       </Attribute>
+       <Attribute Name="rad_source" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/rad_source
+         </DataItem>
+       </Attribute>
+       <Attribute Name="rhoD_fpi" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/rhoD_fpi
+         </DataItem>
+       </Attribute>
+       <Attribute Name="ss_bar" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/ss_bar
+         </DataItem>
+       </Attribute>
+       <Attribute Name="tau_turb_xy" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/tau_turb_xy
+         </DataItem>
+       </Attribute>
+       <Attribute Name="tau_turb_xz" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/tau_turb_xz
+         </DataItem>
+       </Attribute>
+       <Attribute Name="tau_turb_yz" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/tau_turb_yz
+         </DataItem>
+       </Attribute>
+       <Attribute Name="tau_wall_les" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/tau_wall_les
+         </DataItem>
+       </Attribute>
+       <Attribute Name="temperature" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/temperature
+         </DataItem>
+       </Attribute>
+       <Attribute Name="vis_turb" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/vis_turb
+         </DataItem>
+       </Attribute>
+       <Attribute Name="volninv" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/volninv
+         </DataItem>
+       </Attribute>
+       <Attribute Name="y_plus_les" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/y_plus_les
+         </DataItem>
+       </Attribute>
+       <Attribute Name="z_out" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/z_out
+         </DataItem>
+       </Attribute>
+       <Attribute Name="zeta_p" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/zeta_p
+         </DataItem>
+       </Attribute>
+       <Attribute Name="zeta_y" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/Additionals/zeta_y
+         </DataItem>
+       </Attribute>
+       <Attribute Name="Yc" AttributeType="Scalar" Center="Node">
+         <DataItem ItemType="Function" Dimensions="3218095" Function="$0 / $1">
+           <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+             current.h5:/FictiveSpecies/Yc
+           </DataItem>
+           <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+             current.h5:/GaseousPhase/rho
+           </DataItem>
+         </DataItem>
+       </Attribute>
+       <Attribute Name="Z" AttributeType="Scalar" Center="Node">
+         <DataItem ItemType="Function" Dimensions="3218095" Function="$0 / $1">
+           <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+             current.h5:/FictiveSpecies/Z
+           </DataItem>
+           <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+             current.h5:/GaseousPhase/rho
+           </DataItem>
+         </DataItem>
+       </Attribute>
+       <Attribute Name="zv" AttributeType="Scalar" Center="Node">
+         <DataItem ItemType="Function" Dimensions="3218095" Function="$0 / $1">
+           <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+             current.h5:/FictiveSpecies/zv
+           </DataItem>
+           <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+             current.h5:/GaseousPhase/rho
+           </DataItem>
+         </DataItem>
+       </Attribute>
+       <Attribute Name="rho" AttributeType="Scalar" Center="Node">
+         <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+           current.h5:/GaseousPhase/rho
+         </DataItem>
+       </Attribute>
+       <Attribute Name="E" AttributeType="Scalar" Center="Node">
+         <DataItem ItemType="Function" Dimensions="3218095" Function="$0 / $1">
+           <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+             current.h5:/GaseousPhase/rhoE
+           </DataItem>
+           <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+             current.h5:/GaseousPhase/rho
+           </DataItem>
+         </DataItem>
+       </Attribute>
+       <Attribute Name="u" AttributeType="Scalar" Center="Node">
+         <DataItem ItemType="Function" Dimensions="3218095" Function="$0 / $1">
+           <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+             current.h5:/GaseousPhase/rhou
+           </DataItem>
+           <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+             current.h5:/GaseousPhase/rho
+           </DataItem>
+         </DataItem>
+       </Attribute>
+       <Attribute Name="v" AttributeType="Scalar" Center="Node">
+         <DataItem ItemType="Function" Dimensions="3218095" Function="$0 / $1">
+           <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+             current.h5:/GaseousPhase/rhov
+           </DataItem>
+           <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+             current.h5:/GaseousPhase/rho
+           </DataItem>
+         </DataItem>
+       </Attribute>
+       <Attribute Name="w" AttributeType="Scalar" Center="Node">
+         <DataItem ItemType="Function" Dimensions="3218095" Function="$0 / $1">
+           <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+             current.h5:/GaseousPhase/rhow
+           </DataItem>
+           <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+             current.h5:/GaseousPhase/rho
+           </DataItem>
+         </DataItem>
+       </Attribute>
+       <Attribute Name="N2_dummy" AttributeType="Scalar" Center="Node">
+         <DataItem ItemType="Function" Dimensions="3218095" Function="$0 / $1">
+           <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+             current.h5:/RhoSpecies/N2_dummy
+           </DataItem>
+           <DataItem Format="HDF" Dimensions="3218095" NumberType="Float" Precision="8">
+             current.h5:/GaseousPhase/rho
+           </DataItem>
+         </DataItem>
+       </Attribute>
+    </Grid>
+  </Grid>
+</Domain>
+</Xdmf>

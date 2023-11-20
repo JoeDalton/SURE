@@ -1,0 +1,45 @@
+ ----> Reading run parameters : ../RUN/run.params
+ ----> Using NATURAL reordering
+
+ ----> command.dat file API is enabled
+
+ ----> Using Lax Wendroff
+       with UNCLOSED boundary terms
+
+ ----> Using ttc viscosity model
+
+
+ ----> Temporals are activated and full balances are computed
+
+       Transports fictive species: Z
+       Transports fictive species: Yc
+       Transports fictive species: zv
+ ---> Using reactive sponge layer(s)
+
+
+        ________________________________________________________________________
+       | Reactive sponge1layer:                                                |
+       |    Lowest point:             0.44000E+00  -0.60000E+00  -0.60000D+00  |
+       |    Highest point:            0.60000E+00   0.60000E+00   0.60000D+00  |
+       |_______________________________________________________________________|
+
+ ----> Reading FPI-TTC look-up table : ../RUN/../TABLE/UFPV_AVBP_V11.h5
+       Nb of dimensions : 4
+       Dimension 1:               Chi_st (  13 points)
+       Dimension 2:                    Z ( 100 points)
+       Dimension 3:                    C ( 154 points)
+       Dimension 4:                  S_Z (  20 points)
+
+ ----> Reading boundary conditions in asciibound file : ../MESH/mesh.asciiBound
+        _______________________________________________________________________________________
+       | Boundary patches (no reordering)                                                     |
+       |______________________________________________________________________________________|
+       | Patch number   Patch name                         Boundary condition                 |
+       | ------------   ----------                         ------------------                 |
+       | 1              inlet_fuel                         INLET_RELAX_UVW_T_Y_TURB           |
+       | 2              inlet_vitiated                     INLET_RELAX_UVW_T_Y                |
+       | 3              outlet                             OUTLET_RELAX_P                     |
+       | 4              lip_walls                          WALL_LAW_ADIAB                     |
+       | 5              walls                              WALL_LAW_ADIAB                     |
+       | 6              ext_walls                          WALL_SLIP_ADIAB                    |
+       |______________________________________________________________________________________|

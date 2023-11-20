@@ -1,0 +1,769 @@
+!#keywords.in_version7.3.0#
+
+!------- Only to specify input file name --------------------!
+$input_filename                                  optional    ! Don't touch this line
+!------------------------------------------------------------!
+ run.params                      character          required    ! here is the path to your input file. This is the only line that you can modify in this file!
+!------------------------------------------------------------!
+$end_input_filename                              optional    ! Don't touch this line
+!------- End only to specify input file name ----------------!
+
+
+
+!
+! Below is the list of possible keywords ($WORD ... $end_WORD) and specifiers.
+! The required keywords have to be present in your input file.
+! For each given keyword, there are optional and required specifiers. Possible values and default values (if they exist) are given on the right of each specifier.
+! Comment lines (not read by the parser) are identified by the character '!'.
+!
+! Do not modify these lines!
+!
+
+!=====================================================================!
+$RUN-CONTROL                                             required     ! <== this block is required
+!---------------------------------------------------------------------!
+  solver_type                          character         required     ! euler/NS
+!                                                                     !
+  simulation_end_time                  double            optional     ! either 'simulation_end_time' or 'simulation_end_iteration' have to be specified
+  simulation_end_iteration             integer           optional     ! either 'simulation_end_time' or 'simulation_end_iteration' have to be specified
+  wall_clock_time_limit                double            optional     ! (default: not used)
+  fixed_timestep                       double            optional     ! (default: not used)
+  freq_timestep                        integer           optional     ! (default: not used)
+!                                                                     !
+  mixture_name                         character         required     !
+  reactive_flow                        character         optional     ! yes/no (default=no)
+  combustion_model                     character         optional     ! no/TF/CFM/PCM/IFCM/FTACLES (mandatory if 'reactive_flow'=yes)
+  two_phase_flow                       character         optional     ! no/Euler/Lagrange (default=no)
+  real_gas                             character         optional     ! Retro compatibility option ( deprecated, use equation_of_state) (default=no)
+  equation_of_state                    character         optional     ! pg/pg_testrg/pr/srk (default=pg)
+  LES_model                            character         required     ! no/smago/smagofilt/smagodyn/wale/k-equation/sigma
+  prandtl_turb                         double            optional     ! (default=0.6d0)
+  schmidt_turb                         double            optional     ! (default=0.6d0)
+!                                                                     !
+  sooting_flow                         character         optional     ! no/2eq_hew_kron/hmom/sectional (default=no)
+  soot_clip                            character         optional     ! yes/no (default=no)
+  soot_coupling                        character         optional     ! yes/no (default=no)
+ 
+  convection_scheme                    character         required     ! LW/TTGC/TTG4A/LW_FE/PSI/RK3/GRK
+  convection_scheme.nstage             integer           optional     ! (default: optimal parameters for each scheme)
+  convection_scheme.nJacobi            integer           optional     ! (default: optimal parameters for each scheme)
+  convection_scheme.rk_coeff           double_array      optional     ! (default: optimal parameters for each scheme)
+  convection_scheme.boundary_terms     character         optional     ! closed/unclosed (default=closed for TTGC and TTG4A, unclosed for LW and LW_FE)
+  diffusion_scheme                     character         optional     ! FV_4delta/FE_2delta (default=FE_2delta, only used if 'solver_type'=NS)
+  CFL                                  double            required     !
+  Fourier                              double            required     !
+  compute_chemical_timestep            character         optional     ! yes/no (default=no)
+  chemical_stability_criterion         double            optional     ! (default=1.d-3)
+  artificial_viscosity_model           character         required     ! no/honey/Jameson/Jameson_species/Colin/Colin_species/Colin_yspec/Colin_rhou/Colin_rhou_species/ttc/LAD
+  artificial_viscosity_2nd_order       double            optional     ! (mandatory if 'artificial_viscosity_model'/=no)
+  artificial_viscosity_4th_order       double            optional     ! (mandatory if 'artificial_viscosity_model'/=no)
+  clip_species                         character         optional     ! yes/no (default=no)
+  source_term_evaluation               character         optional     ! node/cell/nodeGS (default=node for FV schemes and cell for FE schemes)
+  gravity_vector                       double_array      optional     ! (default=0.d0 0.d0 0.d0, no gravity)	
+  gravity_reference_density            double            optional     ! (default=1.17d0, ambient air)
+  accelerated_convergence              character         optional     !
+  alpha_acc                            double            optional     !
+!---------------------------------------------------------------------!
+$end_RUN-CONTROL                                         required     !
+!=====================================================================!
+
+
+!=====================================================================!
+$INPUT-CONTROL                                           required     ! <== this block is required
+!---------------------------------------------------------------------!
+  mesh_file                            character         required     !
+  asciibound_file                      character         required     !
+  asciibound_tpf_file                  character         optional     ! (mandatory if $TPF-EULER)
+  solutbound_file                      character         required     ! target boundary values file
+  solutbound_ramp_file                 character         optional     ! ramp target boundary values file
+  initial_solution_file                character         required     ! Initial solution
+  probe_file                           character         optional     ! (default=none) Use coordinate based probes ( localized on the fly )
+  record_file                          character         optional     ! (default=none) Use node id based probes ( fixed )
+  species_database                     character         optional     !
+  mixture_database                     character         optional     !
+  multiperf_file                       character         optional     ! ???
+  iden_file                            character         optional     ! (mandatory if 'moving_mesh_method'=itc1/itc2/itc3)
+  target_mesh_file                     character         optional     ! (mandatory if 'moving_mesh_method'=itc1/itc2/itc3)
+!---------------------------------------------------------------------!
+$end_INPUT-CONTROL                                       required     !
+!=====================================================================!
+
+
+!=====================================================================!
+$INITIAL-CONDITIONS                                       optional    ! <== this block is optional (initial conditions can be given in INPUT-CONTROL block)
+!---------------------------------------------------------------------!
+  initialization_method                 character         required    ! init_solution_file / init_constant / init_per_meshzones (default : init_solution_file)
+  initial_condition.file                character         optional    ! mandatory if initialization_method = solution_file
+  initial_condition.pressure            double            optional    ! mandatory if initialization_method = values_fullmesh
+  initial_condition.temperature         double            optional    ! mandatory if initialization_method = values_fullmesh
+  initial_condition.u_speed             double            optional    ! mandatory if initialization_method = values_fullmesh (default value = 0.0d0)
+  initial_condition.v_speed             double            optional    ! mandatory if initialization_method = values_fullmesh (default value = 0.0d0)
+  initial_condition.w_speed             double            optional    ! mandatory if initialization_method = values_fullmesh (default value = 0.0d0)
+  initial_condition.yspecies            double_array      optional    ! mandatory if initialization_method = values_fullmesh 
+  initial_condition.yficspecies         double_array      optional    ! mandatory if initialization_method = values_fullmesh 
+  initial_condition.zone_name           character_array   optional    ! mandatory if initialization_method = values_meshzones (for each mesh zone)
+  initial_condition.zone_pressure       double_array      optional    ! mandatory if initialization_method = values_meshzones (for each mesh zone)
+  initial_condition.zone_temperature    double_array      optional    ! mandatory if initialization_method = values_meshzones (for each mesh zone)
+  initial_condition.zone_u_speed        double_array      optional    ! mandatory if initialization_method = values_meshzones (default value = 0.0d0)
+  initial_condition.zone_v_speed        double_array      optional    ! mandatory if initialization_method = values_meshzones (default value = 0.0d0)
+  initial_condition.zone_w_speed        double_array      optional    ! mandatory if initialization_method = values_meshzones (default value = 0.0d0)
+  initial_condition.zone_yspecies       double_array      optional    ! mandatory if initialization_method = values_meshzones (for each mesh zone)
+  initial_condition.zone_yficspecies    double_array      optional    ! mandatory if initialization_method = values_meshzones (for each mesh zone)
+!---------------------------------------------------------------------!
+$end_INITIAL-CONDITIONS                                   optional    !
+!=====================================================================!
+
+
+!=====================================================================!
+$POSTPROC                                                optional     ! <== this block is optional
+!---------------------------------------------------------------------!
+  postproc.activate                    character         required     ! yes/no
+  use_zones                            character         optional     ! Activates the input and usage of zones (yes/no)
+  postproc.dirname                     character         optional     ! (default=./OUTPUT_POSTPROC)
+  cut_planar.name                      character_array   optional     ! Activates the creation of a planar cut
+  cut_planar.average                   character_array   optional     ! Cut for average variables (yes) or instantaneous variables (no)
+  cut_planar.origin                    double_array      optional     ! Must be of type X1 Y1 Z1
+  cut_planar.normal                    double_array      optional     ! Must be of type U V W  
+  cut_planar.save.iteration            integer_array     optional     ! either 'save.iteration' or 'save.time' have to be specified
+  cut_planar.save.time                 double_array      optional     ! either 'save.iteration' or 'save.time' have to be specified
+  cut_disc.name                        character_array   optional     ! Activates the creation of a disc cut
+  cut_disc.average                     character_array   optional     ! Cut for average variables (yes) or instantaneous variables (no)
+  cut_disc.origin                      double_array      optional     ! Must be of type X1 Y1 Z1
+  cut_disc.normal                      double_array      optional     ! Must be of type U V W  
+  cut_disc.radius                      double_array      optional     ! Must be a double value
+  cut_disc.save.iteration              integer_array     optional     ! either 'save.iteration' or 'save.time' have to be specified
+  cut_disc.save.time                   double_array      optional     ! either 'save.iteration' or 'save.time' have to be specified
+  cut_annulus.name                     character_array   optional     ! Activates the creation of a annulus cut
+  cut_annulus.average                  character_array   optional     ! Cut for average variables (yes) or instantaneous variables (no)
+  cut_annulus.origin                   double_array      optional     ! Must be of type X1 Y1 Z1
+  cut_annulus.normal                   double_array      optional     ! Must be of type U V W  
+  cut_annulus.min_radius               double_array      optional     ! Must be a double value
+  cut_annulus.max_radius               double_array      optional     ! Must be a double value
+  cut_annulus.save.iteration           integer_array     optional     ! either 'save.iteration' or 'save.time' have to be specified
+  cut_annulus.save.time                double_array      optional     ! either 'save.iteration' or 'save.time' have to be specified
+  integration_cut.name                 character_array   optional     ! Activates the creation of an integration cut
+  integration_cut.origin               double_array      optional     ! Must be of type X1 Y1 Z1
+  integration_cut.normal               double_array      optional     ! Must be of type U V W  
+  integration_cut.freq.iteration       integer_array     optional     ! either 'freq.iteration' or 'freq.time' have to be specified
+  integration_cut.freq.time            double_array      optional     ! either 'freq.iteration' or 'freq.time' have to be specified
+  integration_disc.name                character_array   optional     ! Activates the creation of an integration disc cut
+  integration_disc.origin              double_array      optional     ! Must be of type X1 Y1 Z1
+  integration_disc.normal              double_array      optional     ! Must be of type U V W  
+  integration_disc.radius              double_array      optional     ! Must be of type double
+  integration_disc.freq.iteration      integer_array     optional     ! either 'freq.iteration' or 'freq.time' have to be specified
+  integration_disc.freq.time           double_array      optional     ! either 'freq.iteration' or 'freq.time' have to be specified
+  integration_annulus.name             character_array   optional     ! Activates the creation of an integration annulus  cut
+  integration_annulus.origin           double_array      optional     ! Must be of type X1 Y1 Z1
+  integration_annulus.normal           double_array      optional     ! Must be of type U V W  
+  integration_annulus.min_radius       double_array      optional     ! Must be of type double
+  integration_annulus.max_radius       double_array      optional     ! Must be of type double
+  integration_annulus.freq.iteration   integer_array     optional     ! either 'freq.iteration' or 'freq.time' have to be specified
+  integration_annulus.freq.time        double_array      optional     ! either 'freq.iteration' or 'freq.time' have to be specified
+  integration_cylinder.name            character_array   optional     ! Activates the creation of an integration cylinder cut
+  integration_cylinder.infinity        character_array   optional     ! Cut is limited by point1 and point2 ( no ) or extended to the full mesh (yes). Default (no)
+  integration_cylinder.point1          double_array      optional     ! Must be of type X1 Y1 Z1
+  integration_cylinder.point2          double_array      optional     ! Must be of type X1 Y1 Z1
+  integration_cylinder.radii           double_array      optional     ! Must be of type R1 R2
+  integration_cylinder.freq.iteration  integer_array     optional     ! either 'freq.iteratio' or 'freq.time'  have to be specified
+  integration_cylinder.freq.time       double_array      optional     ! either freq.iteratio' or 'freq.time'  have to be specified
+  cut_cylindrical.name                 character_array   optional     ! Activates the creation of a cylindrical cut
+  cut_cylindrical.average              character_array   optional     ! Cut for average variables (yes) or instantaneous variables (no)
+  cut_cylindrical.infinity             character_array   optional     ! Cut is limited by point1 and point2 (no) or extended to the full mesh (yes). Default (no)
+  cut_cylindrical.point1               double_array      optional     ! Must be of type X1 Y1 Z1
+  cut_cylindrical.point2               double_array      optional     ! Must be of type X1 Y1 Z1  
+  cut_cylindrical.radii                double_array      optional     ! Must be of type R1 R2
+  cut_cylindrical.save.iteration       integer_array     optional     ! either 'cut.iteration_period' or 'cut.time_period' have to be specified
+  cut_cylindrical.save.time            double_array      optional     ! either 'cut.iteration_period' or 'cut.time_period' have to be specified
+  isosurface.name                      character_array   optional     ! Activates the creation of an isosurface
+  isosurface.variable                  character_array   optional     ! variable to create the isosurface from (1D vectors only and allocated via alloc module)
+  isosurface.value                     double_array      optional     ! value of the isosurface
+  isosurface.save.iteration            integer_array     optional     ! either 'isosurface.save.iteration' or 'isosurface.save.time' have to be specified
+  isosurface.save.time                 double_array      optional     ! either 'isosurface.save.iteration' or 'isosurface.save.time' have to be specified
+!---------------------------------------------------------------------!
+$end_POSTPROC                                            optional     !
+!=====================================================================!
+
+
+!=====================================================================!
+$INTERPOLATE                                             optional     ! <== this block is optional
+!---------------------------------------------------------------------!
+  interpolate.activate                 character         required     ! yes/no
+  interpolate.dirname                  character         optional     ! (default=./OUTPUT_INTERPOLATE)
+  interpolate.name                     character_array   optional     ! interpolated output solution casename
+  interpolate.lastiteration_targetmesh character         optional     ! target mesh file to interpolate last interation field
+  interpolate.lastiteration_name       character         optional     !	interpolated output last iteration solution casename
+  interpolate.targetmesh               character_array   optional     ! target mesh file 
+  interpolate.save.iteration           integer_array     optional     ! iteration save frequency (either save.time or save.iteration must be specified)
+  interpolate.save.time                double_array      optional     ! save time  (either save.time or save.iteration must be specified) 
+!---------------------------------------------------------------------!
+$end_INTERPOLATE                                         optional     !
+!=====================================================================!
+
+
+!=====================================================================!
+$HPC-DEBUG                                               optional     ! <== this block is optional
+!---------------------------------------------------------------------!
+  ncell_group                          integer           required     ! (default value if HPC-DEBUG is not present = 100)
+  partitioner                          character         optional     ! parmetis/ptscotch (default=parmetis)
+  reordering_method                    character         optional     ! no/natural/CM/RCM/metis (default=natural)
+  io_nodes                             integer           optional     ! (number of ranks that will ouput data collectively. Default is 1 (all process write)
+  io_stats                             character         optional     ! yes/no (default=no) Get IO statistics. Hinders performances
+  command_file                         character         optional     ! yes/no (default=yes) Enable/Disable command.dat API. (Stresses the I/O system for large runs)
+  use_el2part                          character         optional     ! yes/no (default=yes) Use existing el2part file. 
+  check_el2part_consistency            character         optional     ! yes/no (default=yes) Check el2part consistency 
+  lagrange_cell_groups                 character         optional     ! yes/no (default=yes) 
+  lagrange_groups_io                   character         optional     ! yes/no (default=yes)
+  timers                               character         optional     ! yes/no (default=no) Activate Timers (rank 0 is displayed only)
+  update_source                        character         optional     ! yes/no (default=yes)
+  check_solution                       character         optional     ! yes/no (default=yes)
+  check_crash                          character         optional     ! yes/no (default=yes) Controls temperature crash check
+  debug_level                          integer           optional     ! (default=0, i.e. no debug message)
+  debug_processor                      character         optional     ! all/master (default=master)
+  auto_reorder_boundary_patch          character         optional     ! yes/no (default=no)
+  extract_subdomains                   character         optional     ! yes/yes_and_stop/no (default=no)
+  udf_library                          character         optional     ! name of udf dll  (ex: udf_postproc.so) Warning, full path must be provided if not in current directory
+!---------------------------------------------------------------------!
+$end_HPC-DEBUG                                           optional     !
+!=====================================================================!
+
+
+!=====================================================================!
+$OUTPUT-CONTROL                                          required     ! <== this block is required
+!---------------------------------------------------------------------!
+  save_solution                        character         required     ! yes/no
+  save_solution.time                   double            optional     ! either 'save_solution.time' or 'save_solution.iteration' have to be specified if 'save_solution'=yes
+  save_solution.iteration              integer           optional     ! either 'save_solution.time' or 'save_solution.iteration' have to be specified if 'save_solution'=yes
+  save_solution.additional             character_array   optional     ! minimum/light/medium/full/postproc (default=minimum)
+  save_solution.user_variable          character_array   optional     ! (default=none)
+  save_solution.user_expr              character_array   optional     ! (default=none)
+  save_solution.name                   character         optional     ! (default=SOLUT/solut)
+  save_solution.name.time              double            optional     ! (default: not used)
+!                                                                     !
+  save_mesh.name                       character         optional     ! (default=SOLUT/mesh if moving mesh options are activated)
+!                                                                     !
+  save_average                         character         required     ! yes/no
+  save_average.time                    double            optional     ! either 'save_average.time' or 'save_average.iteration' have to be specified if 'save_average'=yes
+  save_average.iteration               integer           optional     ! either 'save_average.time' or 'save_average.iteration' have to be specified if 'save_average'=yes
+  save_average.freq_averaging.time     double            optional     ! either 'save_average.freq_averaging.time' or 'save_average.freq_averaging.iteration' have to be specified if 'save_average'=yes
+  save_average.freq_averaging.iteration integer          optional     ! either 'save_average.freq_averaging.time' or 'save_average.freq_averaging.iteration' have to be specified if 'save_average'=yes
+  save_average.name                    character         optional     ! (default=AVE/ave)
+  save_average.name.time               double            optional     ! (default: not used)
+  save_average.mode                    character         optional     ! full/packages/user_only (default=full)
+  save_average.packages                character_array   optional     ! NS/NS_rms/species/species_rms/fictive/fictive_rms/reac/reac_rms/wall/tpf/tpf_rms/like/turbomachinery/cross_correlation/highorder/conservative (mandatory if 'save_average.mode'=packages)
+  save_average.user_variable           character_array   optional     ! (default=none)
+!                                                                     !
+  save_turbomachinery                  character         optional     ! either 'no' or 'rotx'/'x' or 'roty'/'y' or 'rotz'/'z' (default=no)
+  save_source_spec                     character_array   optional     ! (default: not used)
+!                                                                     !
+  save_temporal                        character         required     ! yes/no
+  save_temporal.balance                character         optional     ! yes/no (default=no)
+  save_temporal.time                   double            optional     ! either 'save_temporal.time' or 'save_temporal.iteration' have to be specified if 'save_temporal'=yes
+  save_temporal.iteration              integer           optional     ! either 'save_temporal.time' or 'save_temporal.iteration' have to be specified if 'save_temporal'=yes
+  save_temporal.dirname                character         optional     ! (default=TEMP)
+  save_temporal.pressure_forces        character         optional     ! yes/no (default=no) (if yes , pressforce_moments_reference_position is required)
+  pressforce_moments_reference_position double_array     optional     ! Reference position to compute pressure forces moments (X Y Z)
+  save_temporal.TTC                    character         optional     ! yes/no (default=no)
+!
+  save_temporal.TTCscal                character         optional     ! yes/no (default=no)
+  save_temporal.soot_ss                character         optional     ! yes/no (default=no)
+!                                                                    !
+  multi_zone_postproc                  character         optional     ! yes/no (default=no)
+  engine_postproc                      character         optional     ! yes/no (default=no)  
+!                                                                     !
+  hit_postproc                         character         optional     ! temporal/full/no (default=no)
+!---------------------------------------------------------------------!
+$end_OUTPUT-CONTROL                                      required     !
+!=====================================================================!
+
+
+!=====================================================================!
+$THICKENED-FLAME-MODEL                                   optional     ! <== this block is optional
+!---------------------------------------------------------------------!
+  thickening_type                      character         required     ! constant/dynamic (=applied in the flame front only)
+  thickening_value                     double            optional     ! either 'thickening_value' or 'thickening_npoints' have to be specified.
+  thickening_npoints                   double            optional     ! either 'thickening_value' or 'thickening_npoints' have to be specified. 'thickening_npoints' is allowed only if 'thickening_type'=dynamic.
+  dyn_thickening.sensor                character         optional     ! classical/filtered/relaxation (default=classical) (mandatory if 'thickening_type'=dynamic)
+  dyn_thickening.takeno_sensor         character         optional     ! yes/no (default=no)
+  dyn_thickening.omega0                double_array      optional     ! (mandatory if 'thickening_type'=dynamic)
+  dyn_thickening.activation_temp_coeff double            optional     ! (default=0.5d0, only used if 'thickening_type'=dynamic)
+  dyn_thickening.reference_reaction    integer           optional     ! (mandatory if 'thickening_type'=dynamic)
+  efficiency_model                     character         required     ! no/Colin1/Colin2/Charlette/Charlette_dyn
+  efficiency_constant                  double            optional     ! (default: 0.0052d0 for 'efficiency_model'=Colin1; 0.3d0 for 'efficiency_model'=Colin2; 0.5d0 for 'efficiency_model'=Charlette)
+  flame_thickness                      double_array      optional     ! (mandatory if 'efficiency_constant'/=no or if 'thickening_npoints' is used)
+  flame_speed                          double_array      optional     ! (mandatory if 'efficiency_constant'/=no)
+  tabulation_table                     double_array      optional     ! (mandatory if SIZE(flame_thickness) > 1. Size must be similar to SIZE(flame_thickness))
+  tabulation_variable                  character         optional     ! phi/pressure (default=phi)
+  integral_length_scale                double            optional     ! (mandatory if 'efficiency_constant'=Colin2)
+  wall_damping                         character         optional     ! yes/no (default=yes for 'efficiency_model'=Colin2; no for 'efficiency_model'=Colin1/Charlette/Charlette_dyn)
+  dyn_model.formalism                  character         optional     ! global/local (mandatory if 'efficiency_model'=Charlette_dyn)
+  dyn_model.TFLES_filter_factor        double            optional     ! (mandatory if 'efficiency_model'=Charlette_dyn)
+  dyn_model.scaling_filter             double            optional     ! (default: 0.04d0, only used if 'efficiency_constant'=Charlette_dyn)
+  dyn_model.test2TFLES_filter_size     double            optional     ! (mandatory if 'efficiency_model'=Charlette_dyn)
+  dyn_model.average2TFLES_filter_size  double            optional     ! (mandatory if 'efficiency_model'=Charlette_dyn and 'dyn_model_formalism'=local)
+  dyn_model.temperature_max            double            optional     ! (mandatory if 'efficiency_model'=Charlette_dyn)
+  dyn_model.temperature_min            double            optional     ! (mandatory if 'efficiency_model'=Charlette_dyn)
+  dyn_model.freq_iteration             integer           optional     ! (mandatory if 'efficiency_model'=Charlette_dyn)
+  dyn_thickening.relaxation.speciesname    character     optional     ! (mandatory if 'dyn_thickening.sensor'= relaxation)
+  dyn_thickening.relaxation.fictivename    character     optional     ! (mandatory if 'dyn_thickening.sensor'= relaxation)
+  dyn_thickening.relaxation.alphahot       double        optional     ! (mandatory if 'dyn_thickening.sensor'= relaxation) 
+  dyn_thickening.relaxation.alphacold       double       optional     ! (mandatory if 'dyn_thickening.sensor'= relaxation)
+  dyn_thickening.relaxation.psi0       double            optional     ! (default: 20d0)
+  dyn_thickening.relaxation.Tswitch    double            optional     ! (default: 1600d0)
+  dyn_thickening.relaxation.threshold  double            optional     ! 
+  flame_params_table                   character         optional     ! activates TFLES dynamic local by specifying a link to an hdf table containing flame params.
+  flame_params_table.tabulated_var     character         optional     ! specifiy on which variable the flame params are tabulated  (default=equivalence_ratio) (other_values=pressure)
+  flame_params_table.temperature       double            optional     ! sets up the temperature as a global variable for the table entry (default= 473.0d0)
+  flame_params_table.pressure          double            optional     ! sets up the pressure as a global variable for the table entry (default=101325.0d0)
+  flame_params_table.equivalence_ratio double            optional     ! sets up the equivalence ratio as a global variable for the table entry (default=1.0d0)
+!---------------------------------------------------------------------!
+$end_THICKENED-FLAME-MODEL                               optional     !
+!=====================================================================!
+
+
+!=====================================================================!
+$FTACLES-MODEL                                           optional     ! <== this block is optional
+!---------------------------------------------------------------------!
+  filter_type                          character         required     ! constant/dynamic (=proportional to the mesh size)
+  filter_value                         double            optional     ! 'filter_value' has to be specified if filter_type is constant
+  filter_dx_ratio                      double            optional     ! 'filter_dx_ratio' has to be specified if filter_type is dynamic
+  filter_size_clip                     character         optional     ! yes/no
+  filter_Delta_min_max                 double_array      optional     ! Delta_min Delta_max (mandatory if 'filter_size_clip'=yes)
+  efficiency_model                     character         required     ! no/Charlette/Charlette_dyn/Charlette_dyn_saturated
+  efficiency_constant                  double            optional     ! (default: 0.5d0 for 'efficiency_model'=Charlette)
+  dyn_model.formalism                  character         optional     ! global/local (mandatory if 'efficiency_model'=Charlette_dyn)
+  dyn_model.scaling_filter             double            optional     ! (default: 0.04d0, only used if 'efficiency_model'=Charlette_dyn)
+  dyn_model.test_filter_Delta_ratio    double            optional     ! (mandatory if 'efficiency_model'=Charlette_dyn)
+  dyn_model.average_filter_Delta_ratio double            optional     ! (mandatory if 'efficiency_model'=Charlette_dyn and 'dyn_model_formalism'=local)
+  dyn_model.freq_iteration             integer           optional     ! (mandatory if 'efficiency_model'=Charlette_dyn)
+!---------------------------------------------------------------------!
+$end_FTACLES-MODEL                                       optional     !
+!=====================================================================!
+
+
+!=====================================================================!
+$CFM-MODEL                                               optional     ! <== this block is optional
+!---------------------------------------------------------------------!
+ cfm_formalism                         character         required     ! (default/cfm2/boger)
+ correl_flame_speed                    character         required     ! (constant/generic_mk/gasoline_mk/gasoline_ethanol_yahyaoui/kerosene_fr)
+ eth_liq_frac                          double            optional     !
+ flamespeed_value                      double            optional     ! (mandatory if 'correl_flame_speed'=constant)
+ stretch_effect                        character         optional     ! (no/constant/constant_bg/table/table_bg)
+ stretch.critical_karlovitz            double            optional     ! (mandatory if 'stretch_effect'/=no)
+ stretch.value                         double            optional     ! (mandatory if 'stretch_effect'=constant or constant_bg)
+ stretch.table                         character         optional     ! (mandatory of 'stretch_effect'=table or table_bg)
+ cfm_length_scale                      double            optional     ! (used only if cfm_length_scale >0)
+ velocity_fluctuation                  double            optional     ! (mandatory if frozen turbulence is imposed : cfm_length_scale >0)
+ cfm_ufilt_type                        character         optional     ! (viscosity/similarity/rotational, mandatory if cfm_length_scale < 0) 
+ combustion_filter_factor              double            required     !
+ sgs_strain_constant                   double            required     !
+ ignition_model                        character         optional     ! (no/issim/edsim/aktimeuler)
+ deltaT_edsim                          double            optional     ! (mandatory if 'ignition_model = 'edsim')
+ init_size_factor                      double            optional     ! (mandatory if 'ignition_model'= aktimeuler (1.0d0), issim or edsim (0.6d0))
+ symmetry_factor                       double            optional     ! (default : 1,  mandatory if 'ignition_model'= aktimeuler, issim or edsim)
+ nufilt_factor                         double            optional     !
+ auto-ignition_model                   character         optional     ! (no/tki/tki2/tki3)
+ auto-ignition.table                   character         optional     ! (mandatory if 'auto_ignition_model'=tki,tki2,tki3)
+ dyn_model.formalism                   character         optional     ! (constant/global/local, mandatory if 'cfm_formalism'=boger)
+ dyn_model.test_filter_Delta_ratio     double            optional     ! (default:1, mandatory if 'dyn_model.formalism'=global or local)
+ dyn_model.average_filter_Delta_ratio  double            optional     ! (default:1.5, mandatory if 'dyn_model.formalism'= local)
+ dyn_model.filter_type                 character         optional     ! (box or moureau, mandatory if 'dyn_model.formalism'=global or local)
+ dyn_model.scaling_filter              double            optional     ! (default: 0.04d0, only used if 'dyn_model.filter_type'=moureau)
+ dyn_model.freq_iteration              integer           optional     ! (mandatory if 'dyn_model.formalism'=global or local)
+!---------------------------------------------------------------------!
+$end_CFM-MODEL                                           optional     !
+!=====================================================================!
+
+
+!=====================================================================!
+$IGNITION-ELECTRICAL-CIRCUIT                             optional     ! <== this block is optional
+!---------------------------------------------------------------------!
+ spark_plugs_number                    integer           required     ! 
+ circuit_model                         character         required     ! (inductive/capacitive/empiric)
+ spark_mode                            character_array   optional     ! (euler/lagrange)
+ spark_center_coordinates              double_array      required     !
+ circuit.electrodes_gap                double_array      required     ! 
+ circuit.electrodes_diameter           double_array      required     ! 
+ circuit.secondary_resistance          double_array      required     ! 
+ circuit.second_coil_inductance        double_array      required     ! 
+ circuit.capacitor_storage             double_array      optional     ! (mandatory if 'circuit_model'=capacitive)
+ ignition_number                       integer           optional     ! 
+ spark_timing                          double_array      required     ! (crank if MOVING-MESH imove = 1)
+ spark_plug_ident_number               integer_array     optional     !  
+ circuit.secondary_energy              double_array      optional     ! (mandatory if 'ignition_model'/=aktimeuler)
+ d_width                               double_array      optional     ! (mandatory with TFLES only)
+ circuit.data_file                     character_array   optional     ! (mandatory if 'circuit_model'=empiric)
+ temp_plasma                           double            optional     ! 
+ thickening_min_temperature            double            optional     ! (mandatory with TFLES)
+!---------------------------------------------------------------------!
+$end_IGNITION-ELECTRICAL-CIRCUIT                         optional     !
+!=====================================================================!
+
+
+!=====================================================================!
+$IGNITION-ENERGY-DEPOSITION                              optional     ! <== this block is optional
+!---------------------------------------------------------------------!
+  deposition_distribution              character         required     ! constant/gaussian
+  deposition_duration                  double            required     !
+  deposition_center_time               double            required     !
+  deposition_length                    double            required     !
+  deposition_center_coordinates        double_array      required     !
+  total_deposited_energy               double            required     !
+  1D_deposit                           character         optional     ! yes/no (default=no)
+  thickening_min_temperature           double            required     !
+!---------------------------------------------------------------------!
+$end_IGNITION-ENERGY-DEPOSITION                          optional     !
+!=====================================================================!
+
+
+!=====================================================================!
+$IGNITION-SOFT                                           optional     ! <== this block is optional
+!---------------------------------------------------------------------!
+  deposition_duration                  double            required     !
+  deposition_center_time               double            required     !
+  deposition_length                    double            required     !
+  deposition_center_coordinates        double_array      required     !
+  target_temperature                   double            required     !
+  relax_temperature_max                double            required     !
+!---------------------------------------------------------------------!
+$end_IGNITION-SOFT                                       optional     !
+!=====================================================================!
+
+
+!=====================================================================!
+$TPF-EULER                                               optional     ! <== this block is optional
+!---------------------------------------------------------------------!
+  drag_force                           character         required     ! no/one-way/two-way
+  evaporation_model                    character         required     ! no/Spalding/AS
+  evaporation_model.mixture            character         optional     ! simplified/complex (mandatory if 'evaporation_model'/=no)
+  evaporation_model.prandtl            double            optional     ! (mandatory if 'evaporation_model.mixture'=complex)
+  evaporation_model.schmidt            double            optional     ! (mandatory if 'evaporation_model.mixture'=complex)
+  liquid_species_name                  character         required     !
+  TPTFLES_model                        character         optional     ! yes/no (default=yes)
+  LES_model                            character         required     ! yes/no
+  RUE_model                            character         required     ! no/VISCO/2FEASM3
+  artificial_viscosity_model           character         required     ! no/honey/Jameson_T/Colin_T/CM/CM_S/CM5/CM5_S/CM5_T
+  artificial_viscosity_2nd_order       double            optional     ! (mandatory if 'artificial_viscosity_model'/=no)
+  artificial_viscosity_4th_order       double            optional     ! (mandatory if 'artificial_viscosity_model'/=no)
+  clipping                             character         required     ! no/nl_dl/alphal
+  dl_min                               double            optional     ! (mandatory if 'clipping'/=no or 'artificial_viscosity_model'/=no or 'evaporation_model'/=no)
+  nl_min                               double            optional     ! (mandatory if 'clipping'/=no or 'artificial_viscosity_model'/=no)
+  clipping_on_RUE                      character         optional     ! no/positive/positive_max (mandatory if 'RUE_model'=yes)
+  RUEmax_over_ke                       double            optional     ! (mandatory if 'clipping_on_RUE'=positive_max)
+!=====================================================================!
+$end_TPF-EULER                                           optional     !
+!---------------------------------------------------------------------!
+
+
+!=====================================================================!
+$SOURCE-TERMS                                            optional     ! <== this block is optional
+!---------------------------------------------------------------------!
+  QDM_source_term_type                 character         required     ! no/constant/dynamic
+  energy_source_term_type              character         required     ! no/constant/dynamic_mean/dynamic_bulk
+  constant_QDM_source_term             double            optional     ! (mandatory if 'QDM_source_term_type'=constant)
+  constant_energy_source_term          double            optional     ! (mandatory if 'energy_source_term_type'=constant)
+  estimated_QDM_source_term            double            optional     ! (mandatory if 'QDM_source_term_type'=dynamic)
+  estimated_energy_source_term         double            optional     ! (mandatory if 'energy_source_term_type'=dynamic_bulk)
+  target_density                       double            optional     ! (mandatory if 'QDM_source_term_type'=dynamic or 'energy_source_term_type'=dynamic_mean or dynamic_bulk)
+  target_velocity                      double            optional     ! (mandatory if 'QDM_source_term_type'=dynamic)
+  target_temperature                   double            optional     ! (mandatory if 'energy_source_term_type'=dynamic_mean or dynamic_bulk)
+  target_Cv                            double            optional     ! (mandatory if 'energy_source_term_type'=dynamic_mean or dynamic_bulk)
+  QDM_relaxation_time                  double            optional     ! (mandatory if 'QDM_source_term_type'=dynamic)
+  energy_relaxation_time               double            optional     ! (mandatory if 'energy_source_term_type'=dynamic_mean or dynamic_bulk)
+!=====================================================================!
+$end_SOURCE-TERMS                                        optional     !
+!---------------------------------------------------------------------!
+
+
+!=====================================================================!
+$SHOCK-HANDLING                                          optional     ! <== this block is optional
+!---------------------------------------------------------------------!
+  shock_handling_method                character         required     ! penalty/Cook
+  threshold_ratio_compressionP_P       double            required     !
+  cook_constant                        double            optional     ! (default=5.0d0)
+  filtering_op_number                  integer           optional     ! (default=2) (needed only if 'shock_handling_method'=Cook)
+  divergence_comp_method               character         optional     ! conserv_grad/velocity_grad (default=velocity_grad) (needed only if 'shock_handling_method'=Cook)
+  space_step_comp_method               character         optional     ! isotropic/anisotropic (default=isotropic) (needed only if 'shock_handling_method'=Cook)
+!=====================================================================!
+$end_SHOCK-HANDLING                                      optional     !
+!---------------------------------------------------------------------!
+
+
+!=====================================================================!
+$RADIATION                                               optional     ! <== this block is optional
+!---------------------------------------------------------------------!
+  coupled_radiation                    character         required     ! yes/no
+  cool_surr_temperature                double            required     !
+  radiating_species_name               character_array   required     !
+  fit_type                             character_array   required     !  exponential/power/invpower
+  twopower_temperature_limit           double_array      optional     !  
+  Planck_absorption_coeffs             double_array      required     !
+  Planck_absorption_coeffs2            double_array      optional     !
+  radspecies_fromttctable              character         optional     ! yes/no (default=no)
+  radspecies_molarweight               double_array      optional     ! required if 'radspecies_fromttctable' is set to 'yes'
+  activate_sootradiation               character         optional     ! yes/no (default=no)
+  sootradiation_model                  character         optional     ! model1 (required if activate_sootradiation is set to 'yes')
+!=====================================================================!
+$end_RADIATION                                           optional     !
+!
+
+!=====================================================================!
+$SPONGE-LAYER                                            optional     ! <== this block is optional
+!---------------------------------------------------------------------!
+  sponge_layer.activate                character         required     ! yes/no
+  X_lowest_point                       double_array      required     !
+  Y_lowest_point                       double_array      required     !
+  Z_lowest_point                       double_array      optional     ! (mandatory for 3D computations)
+  X_highest_point                      double_array      required     !
+  Y_highest_point                      double_array      required     !
+  Z_highest_point                      double_array      optional     ! (mandatory for 3D computations)
+  space_step                           double_array      required     !
+  artificial_viscosity_coeff           double_array      required     !
+!=====================================================================!
+$end_SPONGE-LAYER                                        optional     !
+!---------------------------------------------------------------------!
+
+
+!=====================================================================!
+$SPONGE-LAYER-REAC                                       optional     ! <== this block is optional
+!---------------------------------------------------------------------!
+  sponge_layer_reac.activate           character         required     ! yes/no
+  X_lowest_point                       double_array      required     !
+  Y_lowest_point                       double_array      required     !
+  Z_lowest_point                       double_array      optional     ! (mandatory for 3D computations)
+  X_highest_point                      double_array      required     !
+  Y_highest_point                      double_array      required     !
+  Z_highest_point                      double_array      optional     ! (mandatory for 3D computations)
+  space_step                           double_array      required     !
+!=====================================================================!
+$end_SPONGE-LAYER-REAC                                   optional     !
+!---------------------------------------------------------------------!
+
+
+!=====================================================================!
+$TPF-LAGRANGE                                            optional     ! <== this block is optional
+!---------------------------------------------------------------------!
+  name_of_ptcl_subset                  character         required     !
+  initial_ptcl_file                    character         required     !
+  velocity_initialisation              character         optional     ! no/equilibrium (default=no)
+  save_solution_ptcl                   character         optional     ! no/yes (not present: gaseous solution frequency, yes)
+  save_solution_ptcl.time              double            optional     !
+  save_solution_ptcl.name.time         double            optional     !
+  save_solution_ptcl.iteration         integer           optional     !
+  save_solution_ptcl_with_postproc     character         optional     !
+  force_localisation                   character         optional     !
+  freq_lagrange_iteration              integer           optional     ! (default=1)
+  drag_force_model                     character         required     ! no/SN/IFPEN-DDM
+  drag_force_retro_coupling            character         required     ! yes/no
+  evaporation_model                    character         required     ! no/Spalding/AS/SIGLE/MustARD
+  evaporation_model.mixture            character         optional     ! simplified/complex (mandatory if 'evaporation_model'/=no)
+  evaporation_model.prandtl            double            optional     ! (mandatory if 'evaporation_model.mixture'=complex)
+  evaporation_model.schmidt            double            optional     ! (mandatory if 'evaporation_model.mixture'=complex)
+  evap_thermal_r_clip                  double            optional     ! (default = 2.5d-6)
+  evaporation_model.third_law          character         optional     ! no/yes (default=yes)
+  species_name                         character         required     !
+  breakup_model                        character         optional     ! no/SAB/FAST (default=no)
+  breakup_model.FAST_rad_dist_spread   double            optional     ! Spread of the RR distribution of child particles (mandatory if 'breakup_model'=FAST)
+  breakup_model.FAST_min_radius        double            optional     ! Minimum radius of child droplets and below which break-up is deactivated (mandatory if 'breakup_model'=FAST)
+  breakup_model.SAB_max_nb_child       integer           optional     ! (mandatory if 'breakup_model'=SAB)
+  injectors_param_file                 character         optional     !
+  TPTFLES_model                        character         optional     ! no/yes (default=yes)
+  asciiBound_file                      character         required     !
+  film_computed_with_press_grad        character         optional     ! no/yes (default=yes)
+  EL2EE_interpol_type                  character         optional     ! no/proximus/linear (default=no)
+  robust_transport_algo                character         optional     ! no/yes (default=no)
+  ai_table_name                        character         optional     !
+  mixture_name                         character         optional     !
+  Oxydiser_spec_name                   character         optional     !
+  ai_evaluation_type                   character         optional     !
+  point_source_correction              character         optional     !
+  tau_spark_relax                      double            optional     !
+!=====================================================================!
+$end_TPF-LAGRANGE                                        optional     !
+!---------------------------------------------------------------------!
+
+
+!=====================================================================!
+$INJECTION-TYPE                                          optional     ! <== this block is optional
+!---------------------------------------------------------------------!
+  injector_type                        character         required     ! point/line/disk/disk2/cone/full_cone_ifp/hollow_cone_ifp/FIMUR/full_disk_ifp
+  mass_flow_rate                       double            optional     !
+  total_mass                           double            optional     !
+  velocity                             double            optional     !
+  rms_velocity                         double            optional     !
+  swirl                                double            optional     !
+  file_flowrate                        character         optional     !
+  inj_patch_name                       character         optional     !
+  disk_diameter                        double            optional     !
+  injector_diameter                    double            optional     !
+  outer_angle                          double            optional     !
+  inner_angle                          double            optional     !
+  ref_radius                           double            optional     !
+  cone_angle                           double            optional     !
+  dcone                                double            optional     !
+  l_intact                             double            optional     !
+  alpha_liq                            double            optional     !
+  coef_vit                             double            optional     !
+  coef_gauss                           double            optional     !
+  mean_angle                           double            optional     !
+  pressure                             double            optional     !
+  l_seat                               double            optional     !
+  h_liftmx                             double            optional     !
+  position_vector                      double_array      optional     !
+  position_vector_2                    double_array      optional     !
+  direction_vector                     double_array      optional     !
+  start                                double            optional     !
+  duration                             double            optional     !
+  nphysical_ptcl_per_parcel            double            optional     !
+  nparcel_per_kg                       double            optional     !
+  particle_temperature                 double            optional     !
+  diameter_distribution                character         optional     !
+  diameter_distribution.parameters     double_array      optional     !
+  discrete_distrib_file                character         optional     !
+  sigle_model                          character         optional     ! yes/no (default=no)
+  sigle_model.parameter                double            optional     !
+!=====================================================================!
+$end_INJECTION-TYPE                                      optional     !
+!---------------------------------------------------------------------!
+
+
+!=====================================================================!
+$FICTIVE-SPECIES                                         optional     ! <== this block is optional
+!---------------------------------------------------------------------!
+  fictive_species.activate             character         required     ! yes/no
+  fictive_species.name                 character_array   optional     !
+  fictive_species.Schmidt              double_array      optional     !
+  fictive_species.tracer.group_name    character_array   optional     !
+  fictive_species.tracer.nb_patch      integer_array     optional     !
+  fictive_species.tracer.bc_names      character_array   optional     !
+!=====================================================================!
+$end_FICTIVE-SPECIES                                     optional     !
+!---------------------------------------------------------------------!
+
+
+!=====================================================================!
+$MOVING-MESH-USER-LAW                                    optional     ! <== this block is optional
+!---------------------------------------------------------------------!
+  user_law                             integer           required     !
+  user_law_ramp                        integer           optional     !
+  user_law_parameters                  double_array      optional     !
+  time_step_4move_mesh_only            double            optional     !
+!=====================================================================!
+$end_MOVING-MESH-USER-LAW                                optional     !
+!---------------------------------------------------------------------!
+
+
+!=====================================================================!
+$ENGINE-CONTROL                                          optional     ! <== this block is optional
+!---------------------------------------------------------------------!
+  initial_crank_angle                  double            required     !
+  engine_speed                         double            required     !
+  engine_stroke                        double            optional     !
+  connecting_rod_length                double            optional     !
+!=====================================================================!
+$end_ENGINE-CONTROL                                      optional     !
+!---------------------------------------------------------------------!
+
+!=====================================================================!
+$POLLUTANTS                                              optional     ! <== this block is optional
+!---------------------------------------------------------------------!
+  nox_chemistry                         character         required    !
+  soot_chemistry                        character         required    !
+  lookup_table                          character         optional    !
+  pre_exp_nucl                          double            optional    !
+  pre_exp_sgrowth                       double            optional    !
+  pre_exp_oxi_o2                        double            optional    !
+  pre_exp_oxi_oh                        double            optional    !
+  corr_press_nucl                       double            optional    !
+  corr_press_sgrowth                    double            optional    !
+  corr_press_oxi_o2                     double            optional    !
+  corr_press_oxi_oh                     double            optional    !
+  coll_eff                              double            optional    !
+!=====================================================================!
+$end_POLLUTANTS                                          optional     !
+!---------------------------------------------------------------------!
+
+!=====================================================================!
+$MOVING-MESH                                             optional     ! <== this block is optional
+!---------------------------------------------------------------------!
+  method                                character         required    !
+  move_mesh_only                        character         optional    !
+  step_4move_mesh_only                  double            optional    !
+  step_4smoothing                       double            optional    !
+!=====================================================================!
+$end_MOVING-MESH                                         optional     !
+!---------------------------------------------------------------------!
+
+!=====================================================================!
+$FILTER                                                  optional     ! <== this block is optional
+!---------------------------------------------------------------------!
+  selective_filter.activate            character         required     ! activate selective filter ( default: no)
+  selective_filter.N                   integer           optional     ! Number of recursion (default: 1)
+  selective_filter.coefficient         double            optional     ! Filter coefficient (default: 0.001)
+  selective_filter.calc.iteration      integer           optional     ! Number of temporal iterations between each filtering (default: 1)
+  selective_filter.Pfilt               character         optional     ! Filter pressure instead of rhoE (yes/no/partial) (default: no / partial for ieos>0)
+  LAD_artificial_viscosity.activate    character         required     ! activate artificial viscosity (default: no)
+  LAD_artificial_viscosity.var         character_array   optional     ! Variable used for sensor calculation (rho/P) (default: rho)
+  LAD_artificial_viscosity.mode        character_array   optional     ! Velocity coefficient for the sensor computation (entropic (u) / acoustic (u+c)) (default: entropic for var:rho, acoustic for var=P)
+  LAD_artificial_viscosity.N           integer           optional     ! Number of recursion for the filter used in the sensor (default: 1)
+  LAD_artificial_viscosity.coef        double_array      optional     ! LAD coefficient (default: 2.0d0)
+  LAD_artificial_viscosity.threshold   double_array      optional     ! Threshold for sensor activation (defaut: 3.0d0)
+  LAD_artificial_viscosity.uequil      character         optional     ! Assume mechanical equilibrium on velocity (yes/no) (default: yes)
+  LAD_artificial_viscosity.Pfilt       character         optional     ! Filter pressure instead of rhoE (yes/no/partial) (default: no / partial for ieos>0)
+  LAD_artificial_viscosity.Pfilt.Z     double_array      optional     ! if Pfilt=partial, select compressibility factors under which P is filtered instead of rhoE (default: 0.8d0 0.85d0)
+  species.threshold                    double            optional     ! Maximum viscosity threshold for species
+!=====================================================================!
+$end_FILTER                                              optional     ! <== this block is optional
+!---------------------------------------------------------------------!
+
+!=====================================================================!
+$DYNAMIC_MODE_TRACKING_AND_CONTROL                       optional     ! <== this block is optional
+!---------------------------------------------------------------------!
+  dmt                                 character          required     ! (default no) option : LOW_PASS/STOP_BAND
+  dmt.frequencies                     double_array       optional     ! (mandatory if 'dmt'= LOW_PASS or STOP_BAND) Must be of type F1 F2 ... (max 5) ( for low pass only one value is allowed)
+  dmt.bandwith_filter                 double_array       optional     ! (mandatory if 'dmt'= STOP_BAND) Defines the bandwidth of the stopband filter equation(s)
+  dmt.control                         character          optional     ! yes/no (default=no ) activate control (only if dmt  = STOP_BAND), default is YES for LOW PASS 
+  dmt.control_frequencies             double_array       optional     ! (mandatory if 'dmt.control'= yes ) Must be of type F1 F2 .. (max 5)
+  dmt.control_relax                   double             optional     ! (mandatory if 'dmt.control'= yes ) relax coeffcient, same for all freq
+  dmt.control_slope                   double             optional     ! (optional  if 'dmt.control' yes ) defines the physical time after which Relax_coeff=0.9*Relax_coeff
+  dmt.control_bnd                     character          optional     ! yes/no (default=no ) Include or not control on the boundary condition
+  dmt.control_zone                    character          optional     ! yes/no (default=no ) Enables the control of only a specific box zone
+  dmt.control_coordinate1             double_array       optional     ! (mandatory if 'dmt.control_zone'= yes ) Defines the lower left coordiante of the control box, Must be of type x y z
+  dmt.control_coordinate2             double_array       optional     ! (mandatory if 'dmt.control_zone'= yes ) Defines the upper right coordiante of the control box, Must be of type x y z
+!---------------------------------------------------------------------!
+$end_DYNAMIC_MODE_TRACKING_AND_CONTROL                   optional     !
+!=====================================================================!
+
+!=====================================================================!
+$SOOT-SECTIONAL                                          optional     ! <== this block is optional
+!---------------------------------------------------------------------!
+  ss.sections_number                   integer           required     ! (default=0)
+  ss.activate_fpv                      character         optional     ! yes/no (default=no)
+  ss.activate_inception                character         optional     ! yes/no (default=yes)
+  ss.activate_condensation             character         optional     ! yes/no (default=yes)
+  ss.activate_surfacegrowth            character         optional     ! yes/no (default=yes)
+  ss.activate_oxidation                character         optional     ! yes/no (default=yes)
+  ss.activate_coagulation              character         optional     ! yes/no (default=yes)
+  ss.activate_thermophoresis           character         optional     ! yes/no (default=yes)
+  ss.soottrashsection                  character         optional     ! yes/no (default=no)
+  ss.soottrashsectionlowlimit          double            optional     ! <= smallest diameter of the trash section in nm (default=300nm)
+  ss.transportPAHmodel                 character         required     ! tabulated/transport1/transport2
+  ss.transportPAH_diffmodel            character         required     ! unity_lewis/tabulated
+  ss.transportedPAH                    character         optional     ! required if ss.transportPAHmodel is set to "transport1"
+  ss.noinceptionPAHs                   character_array   optional     ! required if ss.transportPAHmodel is set to "transport2"
+  ss.subgridmodel                      character         optional     ! no/model1 (default=no)
+  ss.subgridmodel_ficname              character         optional     ! required if ss.subgridmodel is set to "model1"
+  ss.Ntransport                        character         optional     ! yes/no (default=no)
+  ss.Ntransport_ficname                character         optional     ! required if ss.Ntransport is set to "yes"
+  ss.sootcollisionalmodel              character         required     ! spherical/fractal
+  ss.sootsvmodel                       character         required     ! spherical/svmodel1
+  ss.inceptionPAHs                     character_array   required     ! <= array of characters corresponding to PAHs
+  ss.inceptionPAHs_MW                  double_array      optional     ! <= array of doubles corresponding to PAHs molar weights
+  ss.inceptionPAHs_nbC                 double_array      optional     ! <= array of doubles corresponding to PAHs nb of C atoms
+  ss.inceptionPAHs_nbH                 double_array      optional     ! <= array of doubles corresponding to PAHs nb of H atoms
+  ss.save_avgsrcterms                  character         optional     ! yes/no (default=no)
+  ss.save_avgsrcterms_square           character         optional     ! yes/no (default=no)
+!=====================================================================!
+$end_SOOT-SECTIONAL                                      optional     !
+!---------------------------------------------------------------------!
+
+

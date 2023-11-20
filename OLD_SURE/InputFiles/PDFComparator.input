@@ -1,0 +1,27 @@
+BLOCK PDFComparator
+
+  BlackAndWhite     = False # opt, default is False
+  CircleLineStyles  = False # opt, default is False
+  PlotFile          = MyPDFComparison.pdf
+  QoIName           = MyQoIName
+
+  SUBBLOCK Dataset1
+    DatFile       = myFirstFile.h5
+    DatPath       = myFirstPath
+    DatLabel      = Reference
+    PlotKDE       = True # opt, default is False
+    SmoothenKDE   = True # opt, used only if PlotKDE = True, default is True
+    IsReference   = True # opt, default is False. Only one dataset can have  this flag. If True, pdf distance are computed from this dataset
+  END SUBBLOCK
+
+  SUBBLOCK Dataset2
+    DatFile       = mySecondFile.h5
+    DatPath       = mySecondPath
+    DatLabel      = OtherDataset
+    PlotKDE       = False # opt, default is False
+    BinNumber     = 50    # opt, used only of PlotKDE = False, default is 50
+  END SUBBLOCK
+
+  # An arbitrary number of datasets can be specified here
+END BLOCK
+

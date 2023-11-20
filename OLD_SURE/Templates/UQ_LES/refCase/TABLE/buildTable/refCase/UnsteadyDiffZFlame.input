@@ -1,0 +1,83 @@
+#------------------
+# DiffZ Flame Parameters
+#------------------
+BLOCK Parameters
+  # Initial Solution
+  Initial_Solution_File    = InitFlame.h5
+  #Initial_Solution_File    = Sols/Solution_000033900.h5
+  Initial_Solution_Format  = HDF
+
+  # Output Solution(s)
+  Freq_Iteration_Display   = 10
+  Output_Level             = 1
+  Output_Solution_Niter    = 100
+  Output_Solution_Format   = HDF
+  Output_Solution_Name     = Sols/Solution
+
+  # Flame parameters
+  Strain_Rate                     = 2711
+  Composition_Block_Z0            = Oxidizer 
+  Composition_Block_Z1            = Fuel 
+  UnityLewisNumbers               = YES #NO
+  ActivateGrad_W                  = NO  #YES
+  ActivateDiffusionCorrection     = NO  #YES
+  ActivateFullDifferentialEffects = NO  #YES
+
+  # Advanced parameters
+  ODESolver_Parameters            = ODE_Parameters
+  Grid_Adaptation_Parameters      = GRID_Parameters
+END BLOCK
+
+#------------------
+# GRID Parameters
+#------------------
+BLOCK GRID_Parameters
+  Adaptation = NO
+END BLOCK
+
+#------------------
+# ODE Parameters
+#------------------
+BLOCK ODE_Parameters
+  ODE_Solver              = ROCK2
+  FinalTime               = 1.0e-01
+  Step_Size_Determination = Adaptation
+  InitialStep             = 1.0e-09
+  Relative_Tolerance      = 1.0e-07
+  Absolute_Tolerance      = 1.0e-010
+END BLOCK
+#BLOCK ODE_Parameters
+#  ODE_Solver              = Euler
+#  FinalTime               = 5e-03
+#  Step_Size_Determination = Constant
+#  InitialStep             = 1e-08
+#END BLOCK
+
+#------------------
+# Composition Z0 
+#------------------
+BLOCK Oxidizer 
+  Mechanism        = SampledMech.h5
+  CompoMode        = Classic 
+  Temperature      = 1030
+  Pressure         = 101325
+  H2O	             = 0.0989
+  N2               = 0.7534
+  O2	             = 0.1474
+  SpeciesFractions = MOLE
+  Renormalize      = YES
+END BLOCK
+
+#------------------
+# Composition Z1 
+#------------------
+BLOCK Fuel 
+  Mechanism        = SampledMech.h5
+  CompoMode        = Classic 
+  Temperature      = 305
+  Pressure         = 101325
+  H2               = 0.2537
+  N2	             = 0.7427
+  SpeciesFractions = MOLE
+  Renormalize      = YES
+END BLOCK

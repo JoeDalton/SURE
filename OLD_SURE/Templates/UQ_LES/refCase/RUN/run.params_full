@@ -1,0 +1,110 @@
+! Full input file with optional parameters !
+ 
+$RUN-CONTROL
+  solver_type = ns
+  diffusion_scheme = FE_2delta
+  simulation_end_iteration = 70000
+  wall_clock_time_limit =   0.14300000D+05
+  mixture_name = FPI-TTC
+  reactive_flow = yes
+  combustion_model = no
+  two_phase_flow = no
+  sooting_flow = no
+  equation_of_state = perfect_gas
+  LES_model = wale
+  prandtl_turb =   0.60000000D+00
+  schmidt_turb =   0.60000000D+00
+  convection_scheme = LW
+  CFL =   0.70000000D+00
+  Fourier =   0.10000000D+00
+  compute_chemical_timestep = no
+  artificial_viscosity_model = ttc
+  artificial_viscosity_2nd_order =   0.50000000D+00
+  artificial_viscosity_4th_order =   0.50000000D-01
+  clip_species = no
+  source_term_evaluation = node
+$end_RUN-CONTROL
+ 
+ 
+$INPUT-CONTROL
+  mesh_file = .//../MESH/mesh.mesh.h5
+  asciibound_file = .//../MESH/mesh.asciiBound
+  solutbound_file = .//../SOLUTBOUND/mesh.solutBound.h5
+  initial_solution_file = .//./SOLUT/current.h5
+  probe_file = .//record.dat
+  species_database = .//species_database.dat
+  mixture_database = .//mixture_database.dat
+$end_INPUT-CONTROL
+ 
+$OUTPUT-CONTROL
+  save_solution = yes
+  save_solution.iteration = 35000
+  save_solution.name = ./SOLUT/solut
+  save_solution.additional = light
+  save_temporal = yes
+  save_temporal.balance = yes
+  save_temporal.iteration = 10
+  save_temporal.dirname = ./TEMPORAL/4/
+  save_temporal.pressure_forces = no
+  save_average = no
+  multi_zone_postproc = no
+  engine_postproc = no
+  hit_postproc = no
+$end_OUTPUT-CONTROL
+ 
+ 
+$INITIAL-CONDITIONS
+  initialization_method = init_solution_file
+  initial_condition.file = .//./SOLUT/current.h5
+$end_INITIAL-CONDITIONS
+ 
+ 
+$HPC-DEBUG
+  ncell_group = 100
+  partitioner = parmetis
+  reordering_method = natural
+  use_el2part = yes
+  check_el2part_consistency = yes
+  lagrange_cell_groups = yes
+  io_stats = no
+  command_file = yes 
+  io_nodes = 1
+  timers = no
+  update_source = yes
+  check_solution = yes
+  debug_level = 0
+  debug_processor = master
+  auto_reorder_boundary_patch = no
+  extract_subdomains = no
+$end_HPC-DEBUG
+ 
+ 
+$POSTPROC
+  postproc.activate = no
+$end_POSTPROC
+ 
+ 
+$SPONGE-LAYER
+  sponge_layer.activate = no
+$end_SPONGE-LAYER
+ 
+ 
+$RADIATION
+  cool_surr_temperature =   0.29800000D+03
+  radiating_species_name =  O2
+  fit_type = invpower
+  Planck_absorption_coeffs =   0.00000000D+00   0.00000000D+00   0.00000000D+00   0.00000000D+00   0.00000000D+00
+   0.00000000D+00
+$end_RADIATION
+ 
+ 
+$FICTIVE-SPECIES
+  fictive_species.activate = yes
+  fictive_species.name = Z Yc zv
+  fictive_species.Schmidt =   0.70000000D+00   0.70000000D+00   0.70000000D+00
+$end_FICTIVE-SPECIES
+ 
+$DYNAMICAL_MODE_TRACKING_AND_CONTROL
+dmt = NO
+$end_DYNAMICAL_MODE_TRACKING_AND_CONTROL
+ 

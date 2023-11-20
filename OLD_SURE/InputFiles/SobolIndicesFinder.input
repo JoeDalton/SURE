@@ -1,0 +1,10 @@
+BLOCK Parameters
+  PCEFile     = --> Files/myFile
+  PCEPath     = Surrogates/myPCE
+  OutputFile  = --> Files/myFile
+  OutputPath  = SobolIndices/withMyPCE
+END BLOCK
+
+BLOCK Files
+  myFile      = results/myResultFile.h5
+END BLOCK

@@ -1,0 +1,24 @@
+#!/bin/bash
+
+#SBATCH --job-name=AVBP
+#SBATCH --output=output.txt
+#SBATCH --error=err.txt
+#SBATCH --time=04:00:00
+#SBATCH --ntasks=400
+#SBATCH --partition=cpu_med
+##SBATCH --partition=<cpu_short|cpu_med|cpu_prod|cpu_long> (see available partitions)
+
+
+# Chargement des modules
+module purge
+source ~/.bashrc
+source ~/.avbprc
+
+# On se place dans le repertoire depuis lequel le job a ete soumis
+cd ${SLURM_SUBMIT_DIR}
+#cp runFusion.params run.params
+echo $LD_LIBRARY_PATH
+echo ""
+echo $AVBP_HOME
+srun /gpfs/workdir/lavabreg/avbp/HOST/RUCHE/BIN/AVBP_V73_CERFACS.RUCHE #> toto.txt 2>&1
+echo "toto"

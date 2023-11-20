@@ -1,0 +1,9 @@
+sample_0/soluts.txt
+sample_1/soluts.txt
+sample_2/soluts.txt
+sample_3/soluts.txt
+sample_4/soluts.txt
+sample_5/soluts.txt
+sample_6/soluts.txt
+sample_7/soluts.txt
+sample_8/soluts.txt

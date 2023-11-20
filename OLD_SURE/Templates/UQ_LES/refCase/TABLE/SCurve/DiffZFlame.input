@@ -1,0 +1,89 @@
+#------------------
+# DiffZ Flame Parameters
+#------------------
+BLOCK Parameters
+  # Initial Solution
+  Initial_Solution_File    = Sols/Solution_last.h5
+  Initial_Solution_Format  = HDF
+
+  # Output Solution(s)
+  Output_Level             = 1
+  Output_Solution_Format   = HDF
+  Output_Solution_Name     = Sols_Steady/Solution
+  Final_Solution_Name      = Sols/Final_Solution
+
+  # Flame parameters
+  Strain_Rate                     = 100
+  Composition_Block_Z0            = Oxidizer 
+  Composition_Block_Z1            = Fuel 
+  UnityLewisNumbers               = YES
+  ActivateGrad_W                  = NO
+  ActivateDiffusionCorrection     = NO
+  ActivateFullDifferentialEffects = NO
+
+  # Advanced parameters
+  Newton_Parameters          = Newton_Parameters
+  Grid_Adaptation_Parameters = Grid_Adaptation
+  Dump_Adaptation            = NO
+
+END BLOCK
+
+#------------------
+# Newton Parameters
+#------------------
+BLOCK Newton_Parameters
+  NewtonSolver         = NLEQERR
+  NewtonTolerance      = 1.0e-04
+  NewtonEpsilonScaling = 1.0e-20
+  CheckFailure         = NO
+  MaxIterations        = 30
+  Lambda_0             = 1.0e-04
+  Lambda_min           = 1.0e-08
+  Lambda_Estimator     = DF 
+  Switch_QNERR         = NO
+  Jacobian_type        = blocks_optim 
+  Jacobian_epsilon     = 1.0e-08
+  N_Jac_Compute        = 1
+END BLOCK
+
+#------------------
+#  Grid adaptation
+#------------------
+BLOCK Grid_Adaptation
+  Adaptation = NO
+  Method    =  Regath  # Choice: Regath/Cantera/Uniform,  default is Regath
+  Ratio    = 10        # Only if Method = Regath or Cantera
+  Slope    = 0.01      # Only if Method = Cantera
+  Curv     = 0.01      # Only if Method = Regath or Cantera
+  Prune    = 0.005     # Only if Method = Cantera
+  Output_Level = 1     # Set 0 to skip info on terminal
+  Max_Grid_Passes  = 2 # Maximum refinement pass
+END BLOCK
+#------------------
+# Composition Z0 
+#------------------
+BLOCK Oxidizer 
+  Mechanism        = SampledMech.h5
+  CompoMode        = Classic 
+  Temperature      = 1060
+  Pressure         = 101325
+  H2O	             = 0.0989
+  N2               = 0.7534
+  O2	             = 0.1474
+  SpeciesFractions = MOLE
+  Renormalize      = YES
+END BLOCK
+
+#------------------
+# Composition Z1 
+#------------------
+BLOCK Fuel 
+  Mechanism        = SampledMech.h5
+  CompoMode        = Classic 
+  Temperature      = 305
+  Pressure         = 101325
+  H2               = 0.2537
+  N2	             = 0.7427
+  SpeciesFractions = MOLE
+  Renormalize      = YES
+END BLOCK

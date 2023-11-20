@@ -1,0 +1,59 @@
+BLOCK Surrogate
+  SurrogateFile         = --> Files/mySurFile
+  SurrogatePath         = Surrogates/myPCE
+  InputsPath            = Data/Inputs # The following datasets must contain the samples used to build the surrogate
+  OutputsPath           = Data/QoI
+  ExperimentFile        = --> Files/mySurFile
+  ExperimentPath        = Experiment
+  SummaryPlotFile       = Summary_plot.pdf
+  ModelPlotFile         = Model_plot.pdf # opt
+  PlotKDE               = False # opt : Default is False
+  SmoothenKDE           = False # opt, useful only of plotKDE is True, Default is False
+  PreprocessingSurrogate= SurProc # opt
+  PreprocessingOriPoints= DataProc # opt
+  SurrogateOnOriPoints  = False # opt, default is True
+END BLOCK
+
+BLOCK Validation # OPT - Computes quality metrics with (a few) validation points
+  ValidationFile        = --> Files/myValFile
+  InputsPath            = Data/Inputs
+  OutputsPath           = Data/QoI
+  Preprocessing         = DataProc # opt
+END BLOCK
+
+BLOCK Reference # OPT - Compares surrogate to a reference (Monte-Carlo) sampling of the real mode
+  ReferenceFile         = --> Files/myRefFile
+  InputsPath            = Data/Inputs
+  OutputsPath           = Data/QoI
+  isSameDim             = True          # opt (default = True) Indicates if the ref inputs are compatible with the surrogate
+  PDFPlotFile           = PDF_plot.pdf
+  PlotKDE               = False # opt : Default is False
+  SmoothenKDE           = False # opt, useful only if plotKDE is True, Default is False
+  Preprocessing         = DataProc # opt
+  SurrogateOnRefPoints  = True # opt, default is False
+END BLOCK
+
+
+BLOCK SurProc
+  xInPreProc    = AD
+  SUBBLOCK AD
+    Type        = ActiveDirection
+    LoadFile    = --> Files/mySurFile
+    LoadPath    = InputReduction/ActiveDirection
+  END SUBBLOCK
+END BLOCK
+
+
+BLOCK DataProc
+  xOutPreProc   = TekDaLog
+  SUBBLOCK TekDaLog
+    Type        = LogTransform
+  END SUBBLOCK
+END BLOCK
+
+
+BLOCK Files
+  mySurFile      = results/myResultFile.h5
+  myValFile      = results/myValidationFile.h5
+  myRefFile      = results/myReferenceFile.h5
+END BLOCK

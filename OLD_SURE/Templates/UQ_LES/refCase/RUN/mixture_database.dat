@@ -1,0 +1,17 @@
+$MIXTURE
+!--------------------------------------------------------------------------------------------------
+! Reactive mixture for FPI-TTC - Schmidt number must be reevaluted (taken from CH4 2Steps scheme)
+!--------------------------------------------------------------------------------------------------
+  mixture_name = FPI-TTC
+  transport = tabulated
+  combustion_chemistry = tabulated_ttc
+  !lookup_table = ../TABLE/table_cold_AVBP.h5
+  lookup_table = ../TABLE/UFPV_AVBP_T1045.h5
+  differential_diffusion = no
+  deactivate_chemical_sources = no
+  !deactivate_chemical_sources = yes
+  tabulatedscalars_output = H2O HO2 OH W_YC O H O2 H2 N2
+  tabulatedscalars_output_square = no
+  species_name = N2_dummy
+  species_Schmidt_number = 0.7d0
+$end_MIXTURE

@@ -1,0 +1,175 @@
+<?xml version="1.0" ?>
+<Xdmf xmlns:xi="http://www.w3.org/2003/XInclude" Version="2.0">
+  <Domain>
+    <Grid Collection="Tetrahedron_Mesh" Name="Tetrahedron">
+    <Topology Type="Tetrahedron" NumberOfElements="18800792">
+      <DataItem ItemType="Function" Dimensions="75203168" Function="$0 - 1">
+        <DataItem Format="HDF" DataType="Int" Dimensions="75203168">
+        mesh.mesh.h5:/Connectivity/tet->node
+        </DataItem>
+      </DataItem>
+    </Topology>
+    <Geometry Type="X_Y_Z">
+        <DataItem Format="HDF" DataType="Float" Dimensions="3218095">
+        mesh.mesh.h5:/Coordinates/x
+        </DataItem>
+        <DataItem Format="HDF" DataType="Float" Dimensions="3218095">
+        mesh.mesh.h5:/Coordinates/y
+        </DataItem>
+        <DataItem Format="HDF" DataType="Float" Dimensions="3218095">
+        mesh.mesh.h5:/Coordinates/z
+        </DataItem>
+    </Geometry>
+  </Grid>
+  <Grid Collection="mesh.mesh.h5" Name="inlet_fuel">
+    <Topology Type="Triangle" NumberOfElements="880">
+      <DataItem ItemType="Function" Dimensions="2640" Function="$0 - 1">
+        <DataItem ItemType="Hyperslab" Dimensions="2640" Type="HyperSlab" >
+          <DataItem Dimensions="3" Format="XML">
+          0 1 2640
+          </DataItem>
+          <DataItem Format="HDF" DataType="Int" Dimensions="102042">
+          mesh.mesh.h5:/Boundary/bnd_tri->node
+          </DataItem>
+        </DataItem>
+      </DataItem>
+    </Topology>
+    <Geometry Type="X_Y_Z">
+        <DataItem Format="HDF" DataType="Float" Dimensions="3218095">
+        mesh.mesh.h5:/Coordinates/x
+        </DataItem>
+        <DataItem Format="HDF" DataType="Float" Dimensions="3218095">
+        mesh.mesh.h5:/Coordinates/y
+        </DataItem>
+        <DataItem Format="HDF" DataType="Float" Dimensions="3218095">
+        mesh.mesh.h5:/Coordinates/z
+        </DataItem>
+    </Geometry>
+ </Grid>
+  <Grid Collection="mesh.mesh.h5" Name="inlet_vitiated">
+    <Topology Type="Triangle" NumberOfElements="16270">
+      <DataItem ItemType="Function" Dimensions="48810" Function="$0 - 1">
+        <DataItem ItemType="Hyperslab" Dimensions="48810" Type="HyperSlab" >
+          <DataItem Dimensions="3" Format="XML">
+          2640 1 48810
+          </DataItem>
+          <DataItem Format="HDF" DataType="Int" Dimensions="102042">
+          mesh.mesh.h5:/Boundary/bnd_tri->node
+          </DataItem>
+        </DataItem>
+      </DataItem>
+    </Topology>
+    <Geometry Type="X_Y_Z">
+        <DataItem Format="HDF" DataType="Float" Dimensions="3218095">
+        mesh.mesh.h5:/Coordinates/x
+        </DataItem>
+        <DataItem Format="HDF" DataType="Float" Dimensions="3218095">
+        mesh.mesh.h5:/Coordinates/y
+        </DataItem>
+        <DataItem Format="HDF" DataType="Float" Dimensions="3218095">
+        mesh.mesh.h5:/Coordinates/z
+        </DataItem>
+    </Geometry>
+ </Grid>
+  <Grid Collection="mesh.mesh.h5" Name="outlet">
+    <Topology Type="Triangle" NumberOfElements="5140">
+      <DataItem ItemType="Function" Dimensions="15420" Function="$0 - 1">
+        <DataItem ItemType="Hyperslab" Dimensions="15420" Type="HyperSlab" >
+          <DataItem Dimensions="3" Format="XML">
+          51450 1 15420
+          </DataItem>
+          <DataItem Format="HDF" DataType="Int" Dimensions="102042">
+          mesh.mesh.h5:/Boundary/bnd_tri->node
+          </DataItem>
+        </DataItem>
+      </DataItem>
+    </Topology>
+    <Geometry Type="X_Y_Z">
+        <DataItem Format="HDF" DataType="Float" Dimensions="3218095">
+        mesh.mesh.h5:/Coordinates/x
+        </DataItem>
+        <DataItem Format="HDF" DataType="Float" Dimensions="3218095">
+        mesh.mesh.h5:/Coordinates/y
+        </DataItem>
+        <DataItem Format="HDF" DataType="Float" Dimensions="3218095">
+        mesh.mesh.h5:/Coordinates/z
+        </DataItem>
+    </Geometry>
+ </Grid>
+  <Grid Collection="mesh.mesh.h5" Name="lip_walls">
+    <Topology Type="Triangle" NumberOfElements="890">
+      <DataItem ItemType="Function" Dimensions="2670" Function="$0 - 1">
+        <DataItem ItemType="Hyperslab" Dimensions="2670" Type="HyperSlab" >
+          <DataItem Dimensions="3" Format="XML">
+          66870 1 2670
+          </DataItem>
+          <DataItem Format="HDF" DataType="Int" Dimensions="102042">
+          mesh.mesh.h5:/Boundary/bnd_tri->node
+          </DataItem>
+        </DataItem>
+      </DataItem>
+    </Topology>
+    <Geometry Type="X_Y_Z">
+        <DataItem Format="HDF" DataType="Float" Dimensions="3218095">
+        mesh.mesh.h5:/Coordinates/x
+        </DataItem>
+        <DataItem Format="HDF" DataType="Float" Dimensions="3218095">
+        mesh.mesh.h5:/Coordinates/y
+        </DataItem>
+        <DataItem Format="HDF" DataType="Float" Dimensions="3218095">
+        mesh.mesh.h5:/Coordinates/z
+        </DataItem>
+    </Geometry>
+ </Grid>
+  <Grid Collection="mesh.mesh.h5" Name="walls">
+    <Topology Type="Triangle" NumberOfElements="5334">
+      <DataItem ItemType="Function" Dimensions="16002" Function="$0 - 1">
+        <DataItem ItemType="Hyperslab" Dimensions="16002" Type="HyperSlab" >
+          <DataItem Dimensions="3" Format="XML">
+          69540 1 16002
+          </DataItem>
+          <DataItem Format="HDF" DataType="Int" Dimensions="102042">
+          mesh.mesh.h5:/Boundary/bnd_tri->node
+          </DataItem>
+        </DataItem>
+      </DataItem>
+    </Topology>
+    <Geometry Type="X_Y_Z">
+        <DataItem Format="HDF" DataType="Float" Dimensions="3218095">
+        mesh.mesh.h5:/Coordinates/x
+        </DataItem>
+        <DataItem Format="HDF" DataType="Float" Dimensions="3218095">
+        mesh.mesh.h5:/Coordinates/y
+        </DataItem>
+        <DataItem Format="HDF" DataType="Float" Dimensions="3218095">
+        mesh.mesh.h5:/Coordinates/z
+        </DataItem>
+    </Geometry>
+ </Grid>
+  <Grid Collection="mesh.mesh.h5" Name="ext_walls">
+    <Topology Type="Triangle" NumberOfElements="5500">
+      <DataItem ItemType="Function" Dimensions="16500" Function="$0 - 1">
+        <DataItem ItemType="Hyperslab" Dimensions="16500" Type="HyperSlab" >
+          <DataItem Dimensions="3" Format="XML">
+          85542 1 16500
+          </DataItem>
+          <DataItem Format="HDF" DataType="Int" Dimensions="102042">
+          mesh.mesh.h5:/Boundary/bnd_tri->node
+          </DataItem>
+        </DataItem>
+      </DataItem>
+    </Topology>
+    <Geometry Type="X_Y_Z">
+        <DataItem Format="HDF" DataType="Float" Dimensions="3218095">
+        mesh.mesh.h5:/Coordinates/x
+        </DataItem>
+        <DataItem Format="HDF" DataType="Float" Dimensions="3218095">
+        mesh.mesh.h5:/Coordinates/y
+        </DataItem>
+        <DataItem Format="HDF" DataType="Float" Dimensions="3218095">
+        mesh.mesh.h5:/Coordinates/z
+        </DataItem>
+    </Geometry>
+ </Grid>
+  </Domain>
+</Xdmf>

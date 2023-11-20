@@ -1,0 +1,126 @@
+$RUN-CONTROL
+  solver_type = ns
+  diffusion_scheme = FE_2delta
+  !simulation_end_iteration = 40000 ! For normal batchs
+  !simulation_end_iteration = 120000 ! For night batchs
+  simulation_end_iteration = 70000 ! For ruche batchs
+  !simulation_end_iteration = 1 ! For test batchs
+  !simulation_end_iteration = 525000 ! For ruche night batchs
+  wall_clock_time_limit = 14300.0d0
+  mixture_name = FPI-TTC
+  reactive_flow  = yes
+  sooting_flow = no 
+  combustion_model = no
+  equation_of_state = pg
+  LES_model = wale ! smago
+  prandtl_turb =   0.60000000D+00
+  schmidt_turb =   0.60000000D+00
+  convection_scheme = LW !TTGC
+  CFL =   0.70000000D+00
+  Fourier =   0.10000000D+00
+  compute_chemical_timestep = no
+  artificial_viscosity_model = ttc
+  artificial_viscosity_2nd_order = 5.0D-01 ! recommended : 1.0d-03
+  artificial_viscosity_4th_order = 5.0D-02 ! recommended : 1.0D-04
+  clip_species = no
+$end_RUN-CONTROL
+ 
+$INPUT-CONTROL
+  mesh_file = ../MESH/mesh.mesh.h5
+  asciibound_file = ../MESH/mesh.asciiBound
+  solutbound_file = ../SOLUTBOUND/mesh.solutBound.h5
+  initial_solution_file = ./SOLUT/current.h5
+  !initial_solution_file = ./SOLUT/current_hot.h5
+  probe_file = record.dat
+  species_database = species_database.dat
+  mixture_database = mixture_database.dat
+$end_INPUT-CONTROL
+ 
+$OUTPUT-CONTROL
+  save_solution = yes
+  !save_solution.time = 3.0d-04
+  save_solution.iteration = 35000
+  save_solution.name = ./SOLUT/solut
+  save_solution.additional = light
+  !save_temporal = no
+  save_temporal = yes
+  save_temporal.balance = yes
+  save_temporal.iteration = 10
+  save_temporal.dirname = ./TEMPORAL/1/
+  save_average = no
+  save_average.iteration = 70000
+  save_average.freq_averaging.iteration = 20
+  save_average.name = ./AVERAGE/solut_av
+  save_average.mode = full
+  !save_average.mode = packages
+  !save_average.packages = NS_rms species_rms conservative reac 
+$end_OUTPUT-CONTROL
+
+$SPONGE-LAYER
+  sponge_layer.activate = no 
+  X_lowest_point = 0.44d0
+  Y_lowest_point = -0.6d0
+  Z_lowest_point = -0.6d0
+  X_highest_point = 0.6d0
+  Y_highest_point = 0.6d0
+  Z_highest_point = 0.6d0
+  space_step = 0.005d0
+  artificial_viscosity_coeff = 100.0d0
+$end_SPONGE-LAYER
+ 
+$SPONGE-LAYER-REAC
+  sponge_layer_reac.activate = yes
+  X_lowest_point = 0.44d0
+  Y_lowest_point = -0.6d0
+  Z_lowest_point = -0.6d0
+  X_highest_point = 0.6d0
+  Y_highest_point = 0.6d0
+  Z_highest_point = 0.6d0
+  space_step = 0.005d0
+$end_SPONGE-LAYER-REAC
+
+
+$POSTPROC
+  postproc.activate = no
+  postproc.dirname = ./CUTS/
+  cut_planar.name = mycut
+  cut_planar.origin = 0.0d0 0.0d0 0.0d0
+  cut_planar.normal = 0.0d0 0.0d0 1.0d0
+  cut_planar.save.iteration = 1000
+$end_POSTPROC
+
+
+
+
+
+
+
+!$HPC-DEBUG
+!  ncell_group = 100
+! debug_level = 8
+!  debug_processor = master
+!  auto_reorder_boundary_patch = yes
+!  reordering_method = natural
+!  use_el2part = yes
+!  check_el2part_consistency = yes
+!  partitioner = parmetis
+!$end_HPC-DEBUG
+
+$RADIATION
+  coupled_radiation           = no
+  cool_surr_temperature       = 298.0d0
+  radiating_species_name      = O2
+  fit_type                    = invpower
+  Planck_absorption_coeffs    = 0d0 0d0 0d0 0d0 0d0 0d0
+$end_RADIATION    
+ 
+
+$FICTIVE-SPECIES
+  fictive_species.activate = yes
+  fictive_species.name = Z
+  fictive_species.name = Yc
+  fictive_species.name = zv
+  fictive_species.Schmidt = 0.7d0 0.7d0 0.7d0
+$end_FICTIVE-SPECIES
+
+

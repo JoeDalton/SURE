@@ -1,0 +1,52 @@
+#------------------
+# CreateAgathSolution Parameters
+#------------------
+BLOCK Parameters
+  FlameType         = Diff_Z_Frozen
+  FileName          = InitFlame.h5
+  FileFormat        = HDF 
+  FlamePosition     = 0.000 
+  FlameThickness    = 1.0e-04
+  Composition_Block_Z0 = Oxidizer 
+  Composition_Block_Z1 = Fuel
+  Strain_Rate  = 100
+  X_center = 0
+  Z_stochio = 0.273
+END BLOCK
+
+#------------------
+# Mesh
+#------------------
+BLOCK Mesh
+  MeshType       = Uniform
+  NumberPoints   = 400 
+  X0             = 0 
+  X1             = 1
+END BLOCK  
+
+#------------------
+# Initial Composition 
+#------------------
+BLOCK Fuel
+  Mechanism   = SampledMech.h5
+  CompoMode   = Classic 
+  Temperature = 305
+  Pressure    = 101325
+  H2               = 0.2537
+  N2	             = 0.7427
+  SpeciesFractions = MOLE
+  Renormalize = YES
+END BLOCK
+
+BLOCK Oxidizer
+  Mechanism   = SampledMech.h5
+  CompoMode   = Classic 
+  Temperature = 1030
+  Pressure    = 101325
+  H2O	             = 0.0989
+  N2               = 0.7534
+  O2	             = 0.1474
+  SpeciesFractions = MOLE
+  Renormalize      = YES
+END BLOCK
+

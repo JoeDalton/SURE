@@ -1,0 +1,63 @@
+BLOCK Simulation
+  ID            = myDummySimulation
+  simuType      = To_Keep
+  refFolderPath = refCase
+END BLOCK
+
+BLOCK Experiment
+  ID        = myDummyExperiment
+  ExpPath   = Experiment
+
+  SUBBLOCK Variable_Reaction
+    mode                      = Multiple
+    #number                    = 33
+    #firstIdx                  = 1
+    idxList                   = 16 17 # Can replace firstIdx & number
+    ID                        = A_{%}
+    targetFile                = --> Links/targetMech1 Links/targetMech2
+    targetDictPath            = --> Links/ArrhPath Links/ArrhPath
+    distribution              = Normal
+    transformationType        = NormalToLogNormal
+    transformationFrom        = Files
+    transformationFiles       = --> Links/originalMech Links/originalMech
+    transformationPaths       = --> Links/ArrhPath Links/ArUFPath
+  END SUBBLOCK
+
+  SUBBLOCK Variable_Temperature
+    mode                      = Single
+    ID                        = T
+    targetFile                = --> Links/file1 Links/file2 Links/file3 Links/file4 Links/file5 Links/file6
+    targetDictPath            = --> Links/tempPath Links/tempPath Links/tempPath Links/tempPath Links/tempPath Links/tempPath
+    distribution              = Uniform
+    transformationType        = StretchedUniform
+    transformationFrom        = Values
+    transformationValues      = 1015 1075
+  END SUBBLOCK
+END BLOCK
+
+BLOCK Controller
+  ID          = myController
+  nSample     = 2
+  sequence    = Sobol
+  nThread     = 1
+  resultFile  = results/chemAndTempResultFile.h5
+  QoIPath     = Data/QoI
+  InputPath   = Data/Inputs
+  isContinued = False
+  outputLevel = 0
+END BLOCK
+
+BLOCK Links
+  originalMech  = /Users/lavabreg/agath/data/Mechanisms/H2_Konnov/H2_Konnov_With_UF.h5
+  targetMech1   = TABLE/Scurve/SampledMech.h5
+  targetMech2   = TABLE/buildTable/refCase/SampledMech.h5
+  file1         = TABLE/Scurve/CreateAgathSolution.input
+  file2         = TABLE/Scurve/UnsteadyDiffZFlame.input
+  file3         = TABLE/Scurve/DiffZFlame.input
+  file4         = TABLE/Scurve/Master_SteadyFlame.input
+  file5         = TABLE/buildTable/refCase/CreateAgathSolution.input
+  file6         = TABLE/buildTable/refCase/UnsteadyDiffZFlame.input
+  tempPath      = Oxidizer/Temperature
+  ArrhPath      = Kinetics/Reaction_%/Arrhenius/A
+  ArUFPath      = Kinetics/Reaction_%/Arrhenius/A_UF
+END BLOCK

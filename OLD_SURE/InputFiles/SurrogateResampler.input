@@ -1,0 +1,25 @@
+BLOCK Surrogate
+  SurrogateFile     = --> Files/mySurFile
+  SurrogatePath     = Surrogates/myPCE
+  ExperimentFile    = --> Files/mySurFile
+  ExperimentPath    = Experiment
+END BLOCK
+
+BLOCK Files
+  mySurFile      = results/myResultFile.h5
+END BLOCK
+
+BLOCK Preprocessing #opt
+  xInPreProc    = AD1 # opt, can be a single element or a list. if list, will be applied in the same order as given
+  xOutPreProc   = TekDaLog # opt, idem
+
+  SUBBLOCK AD1
+    Type        = ActiveDirection
+    LoadFile    = --> Files/mySurFile
+    LoadPath    = InputReduction/ActiveDirection
+  END SUBBLOCK
+  
+  SUBBLOCK TekDaLog
+    Type        = LogTransform
+  END SUBBLOCK
+END BLOCK

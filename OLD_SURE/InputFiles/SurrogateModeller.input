@@ -1,0 +1,71 @@
+BLOCK Experiment
+  LoadFile        = --> Data/dataFile
+  LoadPath        = Experiment
+END BLOCK
+
+BLOCK Data
+  dataFile        = test.h5
+  QoIPath         = Data/QoI
+  InputPath       = Data/Inputs
+  nSample         = 1000 # opt | Limits the number of considered samples (test purposes mostly)
+END BLOCK
+
+#BLOCK Surrogate_Model
+#  Type        = PCE
+#  ID          = myDummyPCE
+#  outputLevel = 1
+#  SaveFile    = --> Data/dataFile
+#  SavePath    = Surrogates/PCE
+#
+#  
+#  #SUBBLOCK Polynomial_Basis #opt
+#  #  # To get max total degree 3 and only first-order interaction : maxTotDegree = 4 and quasiNorm = 0.7
+#  #  # quasiNorm = 0.4 # opt
+#  #  # anisotropyWeights = 'some list of size = dimension of experiment' # opt
+#  #  # check = False # opt: Gives information about the constructed basis and then asks for permission to proceed with the determination of weights
+#  #END SUBBLOCK
+#
+#  SUBBLOCK Truncature_Strategy
+#    strategy            = Fixed # Necessary (Fixed|Sequential|Cleaning)
+#    maxNumPolys         = 150   # Necessary (num of poly for fixed basis, max number of considerated polynomials for others)
+#    mostSignificant     = 150   # Necessary only for "Cleaning" strategy
+#    significanceFactor  = 1e-4  # Necessary only for "Cleaning" strategy
+#  END SUBBLOCK
+#
+#  SUBBLOCK Evaluation_Strategy
+#    evalStrategy        = Regression # Necessary (Regression|Cubature)
+#    validStrategy       = KFold      # Necessary only for "Regression" (None|LOO|KFold)
+#    nFold               = 10         # Necessary only for "Regression" with "KFold"
+#  END SUBBLOCK
+#END BLOCK
+
+BLOCK Preprocessing
+  # Warning : for now, inPreProc is not compatible with the PCE (input distribution not coherent)
+  xInPreProc    = AD1 # opt, can be a single element or a list. if list, will be applied in the same order as given
+  xOutPreProc   = TekDaLog # opt, idem
+
+  SUBBLOCK AD1
+    Type        = ActiveDirection
+    ID          = myDummyAD
+    outputLevel = 1
+    SaveFile    = --> Data/dataFile
+    SavePath    = InputReduction/ActiveDirection
+  END SUBBLOCK
+  
+  SUBBLOCK TekDaLog
+    Type        = LogTransform
+  END SUBBLOCK
+END BLOCK
+
+BLOCK Surrogate_Model
+  Type        = OneDSpline
+  ID          = myDummySpline
+  outputLevel = 1
+  SaveFile    = --> Data/dataFile
+  SavePath    = Surrogates/OneDSpline
+END BLOCK
+
+
+BLOCK Files
+  myFile      = /Users/lavabreg/agath/data/Mechanisms/H2_Konnov/H2_Konnov_With_UF.h5
+END BLOCK
